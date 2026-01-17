@@ -1,0 +1,13 @@
+# Chặn các file cấu hình của riêng Eclipse trong dự án
+.project
+.classpath
+.settings/
+
+# Chặn folder chứa file đã biên dịch (không cần thiết trên Git)
+build/
+bin/
+target/
+
+# Chặn các file rác phát sinh
+*.log
+.DS_Store
