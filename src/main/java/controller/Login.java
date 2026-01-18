@@ -10,6 +10,7 @@ import javax.servlet.http.HttpSession;
 
 import model.User;
 import model.UserDAO;
+import util.SecurityUtil;
 
 /**
  * Servlet implementation class Login
@@ -37,7 +38,8 @@ public class Login extends HttpServlet {
 		String url = "";
 		UserDAO userDAO = new UserDAO();
 		User user = userDAO.selectByUserName(userName);
-		if (user != null && user.getPassword().equalsIgnoreCase(password)) {
+		String encryptedPassword = SecurityUtil.toSHA1(password);
+		if (user != null && user.getPassword().equals(encryptedPassword)) {
 			HttpSession session = request.getSession();
 			session.setAttribute("user", user);
 			url = "index.jsp";

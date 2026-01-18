@@ -84,6 +84,6 @@ public class User {
 	private String generateId() {
 		java.util.Date now = new java.util.Date();
         SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMddhhmmss");
-        return sdf.format(now);
+        return "U" + sdf.format(now);
 	}
 }

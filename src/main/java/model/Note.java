@@ -1,6 +1,7 @@
 package model;
 
 import java.sql.Date;
+import java.text.SimpleDateFormat;
 
 public class Note {
 	private String id;
@@ -10,11 +11,10 @@ public class Note {
 	private Date createDate;
 	private Date lastEditDate;
 	public Note() {
-		super();
+		this.id = generateId();
 	}
-	public Note(String id, User user, String title, String content, Date createDate, Date lastEditDate) {
-		super();
-		this.id = id;
+	public Note(User user, String title, String content, Date createDate, Date lastEditDate) {
+		this.id = generateId();
 		this.user = user;
 		this.title = title;
 		this.content = content;
@@ -57,4 +57,10 @@ public class Note {
 	public void setLastEditDate(Date lastEditDate) {
 		this.lastEditDate = lastEditDate;
 	}	
+	
+	private String generateId() {
+		java.util.Date now = new java.util.Date();
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMddhhmmss");
+        return "N" + sdf.format(now);
+	}
 }

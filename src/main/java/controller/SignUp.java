@@ -9,6 +9,8 @@ import javax.servlet.http.HttpServletResponse;
 
 import model.User;
 import model.UserDAO;
+import util.SecurityUtil;
+
 import java.sql.Date;
 
 /**
@@ -47,7 +49,8 @@ public class SignUp extends HttpServlet {
 			url = "sign-up.jsp";
 			request.getRequestDispatcher(url).forward(request, response);
 		} else {
-			User user = new User(userName, password, email, Date.valueOf(dateOfBirthString), gender, fullName, phone);
+			String encryptedPassword = SecurityUtil.toSHA1(password);
+			User user = new User(userName, encryptedPassword, email, Date.valueOf(dateOfBirthString), gender, fullName, phone);
 			userDAO.insert(user);
 			url = "sign-up-success.jsp";
 			response.sendRedirect(url);
