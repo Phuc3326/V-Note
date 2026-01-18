@@ -1,6 +1,7 @@
 package model;
 
 import java.sql.Date;
+import java.text.SimpleDateFormat;
 
 public class User {
 	private String id;
@@ -9,18 +10,24 @@ public class User {
 	private String email;
 	private Date dateOfBirth;
 	private String gender;
+	private String fullName;
+	private String phone;
 	public User() {
-		super();
+		this.id = generateId();
 	}
-	public User(String id, String userName, String password, String email, Date dateOfBirth, String gender) {
-		super();
-		this.id = id;
+	
+	public User(String userName, String password, String email, Date dateOfBirth, String gender,
+			String fullName, String phone) {
+		this.id = generateId();
 		this.userName = userName;
 		this.password = password;
 		this.email = email;
 		this.dateOfBirth = dateOfBirth;
 		this.gender = gender;
+		this.fullName = fullName;
+		this.phone = phone;
 	}
+
 	public String getId() {
 		return id;
 	}
@@ -56,5 +63,27 @@ public class User {
 	}
 	public void setGender(String gender) {
 		this.gender = gender;
+	}
+
+	public String getFullName() {
+		return fullName;
+	}
+
+	public void setFullName(String fullName) {
+		this.fullName = fullName;
+	}
+
+	public String getPhone() {
+		return phone;
+	}
+
+	public void setPhone(String phone) {
+		this.phone = phone;
+	}
+	
+	private String generateId() {
+		java.util.Date now = new java.util.Date();
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMddhhmmss");
+        return sdf.format(now);
 	}
 }

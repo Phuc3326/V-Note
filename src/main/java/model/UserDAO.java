@@ -33,6 +33,43 @@ public class UserDAO implements DAOInterface<User> {
 				user.setEmail(rs.getString("email"));
 				user.setDateOfBirth(rs.getDate("dateofbirth"));
 				user.setGender(rs.getString("gender"));
+				user.setFullName(rs.getString("fullname"));
+				user.setPhone(rs.getString("phone"));
+			}
+			
+			// Ngat ket noi database
+			JDBCUtil.closeConnection(c);
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return user;
+	}
+	
+	public User selectByUserName(String userNameFind) {
+		User user = null;
+		try {
+			// Tao ket noi
+			Connection c = JDBCUtil.getConnection();
+			
+			// Tao Statement
+			String sql = "SELECT * FROM users WHERE username = ?;";
+			PreparedStatement st = c.prepareStatement(sql);
+			st.setString(1, userNameFind);
+			
+			// Thuc thi Statement
+			ResultSet rs = st.executeQuery();
+			
+			// Xu li du lieu
+			if (rs.next()) {
+				user = new User();
+				user.setId(rs.getString("id"));
+				user.setUserName(rs.getString("username"));
+				user.setPassword(rs.getString("password"));
+				user.setEmail(rs.getString("email"));
+				user.setDateOfBirth(rs.getDate("dateofbirth"));
+				user.setGender(rs.getString("gender"));
+				user.setFullName(rs.getString("fullname"));
+				user.setPhone(rs.getString("phone"));
 			}
 			
 			// Ngat ket noi database
@@ -67,6 +104,8 @@ public class UserDAO implements DAOInterface<User> {
 				user.setEmail(rs.getString("email"));
 				user.setDateOfBirth(rs.getDate("dateofbirth"));
 				user.setGender(rs.getString("gender"));
+				user.setFullName(rs.getString("fullname"));
+				user.setPhone(rs.getString("phone"));
 				result.add(user);
 			}
 			
@@ -85,8 +124,8 @@ public class UserDAO implements DAOInterface<User> {
 			Connection c = JDBCUtil.getConnection();
 			
 			// Tao Statement
-			String sql = "INSERT INTO users (id, username, password, email, dateofbirth, gender) "
-					+ "VALUES (?, ?, ?, ?, ?, ?);";
+			String sql = "INSERT INTO users (id, username, password, email, dateofbirth, gender, fullname, phone) "
+					+ "VALUES (?, ?, ?, ?, ?, ?, ?, ?);";
 			PreparedStatement st = c.prepareStatement(sql);
 			st.setString(1, t.getId());
 			st.setString(2, t.getUserName());
@@ -94,6 +133,8 @@ public class UserDAO implements DAOInterface<User> {
 			st.setString(4, t.getEmail());
 			st.setDate(5, t.getDateOfBirth());
 			st.setString(6, t.getGender());
+			st.setString(7, t.getFullName());
+			st.setString(8, t.getPhone());
 			
 			// Thuc thi Statement
 			int result = st.executeUpdate();
@@ -123,7 +164,7 @@ public class UserDAO implements DAOInterface<User> {
 			
 			// Tao Statement
 			String sql = "UPDATE users "
-					+ "SET username = ?, password = ?, email = ?, dateofbirth = ?, gender = ? "
+					+ "SET username = ?, password = ?, email = ?, dateofbirth = ?, gender = ?, fullname = ?, phone = ?"
 					+ "WHERE id = ?;";
 			PreparedStatement st = c.prepareStatement(sql);
 			st.setString(1, t.getUserName());
@@ -131,7 +172,9 @@ public class UserDAO implements DAOInterface<User> {
 			st.setString(3, t.getEmail());
 			st.setDate(4, t.getDateOfBirth());
 			st.setString(5, t.getGender());
-			st.setString(6, t.getId());
+			st.setString(6, t.getFullName());
+			st.setString(7, t.getPhone());
+			st.setString(8, t.getId());
 			
 			// Thuc thi Statement
 			int result = st.executeUpdate();

@@ -1,0 +1,83 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+	pageEncoding="UTF-8"%>
+<%@ page import="model.User"%>
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>V-Note</title>
+<link
+	href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css"
+	rel="stylesheet"
+	integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB"
+	crossorigin="anonymous">
+<script
+	src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js"
+	integrity="sha384-I7E8VVD/ismYTF4hNIPjVp/Zjvgyol6VFvRkX/vR+Vc4jQkC+hVqc2pM8ODewa9r"
+	crossorigin="anonymous"></script>
+<script
+	src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.min.js"
+	integrity="sha384-G/EV+4j2dNv+tEPo3++6LCgdCROaejBqfUeNjuKAiuXbjrxilcCdDz6ZAVfHWe1Y"
+	crossorigin="anonymous"></script>
+
+<style>
+a {
+	text-decoration-line: none;
+	color: white;
+}
+</style>
+</head>
+<body>
+	<header class="p-3 text-bg-dark">
+		<div class="container">
+			<div
+				class="d-flex flex-wrap align-items-center justify-content-center justify-content-lg-start">
+				<a href="/"
+					class="d-flex align-items-center mb-2 mb-lg-0 text-white text-decoration-none">
+					<svg class="bi me-2" width="40" height="32" role="img"
+						aria-label="Bootstrap">
+                <use xlink:href="#bootstrap"></use>
+              </svg>
+				</a>
+				<ul
+					class="nav col-12 col-lg-auto me-lg-auto mb-2 justify-content-center mb-md-0">
+					<li><a href="#" class="nav-link px-2 text-secondary">Home</a></li>
+					<li><a href="#" class="nav-link px-2 text-white">Features</a></li>
+					<li><a href="#" class="nav-link px-2 text-white">Pricing</a></li>
+					<li><a href="#" class="nav-link px-2 text-white">FAQs</a></li>
+					<li><a href="#" class="nav-link px-2 text-white">About</a></li>
+				</ul>
+				<form class="col-12 col-lg-auto mb-3 mb-lg-0 me-lg-3" role="search">
+					<input type="search"
+						class="form-control form-control-dark text-bg-dark"
+						placeholder="Search..." aria-label="Search">
+				</form>
+				<div class="text-end">
+					<button type="button" class="btn btn-outline-light me-2">
+						Find</button>
+					<%
+					Object obj = session.getAttribute("user");
+					User user = (obj != null) ? (User) obj : null;
+					if (user == null) {
+					%>
+					<button type="button" class="btn btn-warning">
+						<a href="login.jsp">Login</a>
+					</button>
+					<%
+					} else {
+					%>
+					<span class="navbar-text me-3"> Welcome, <strong><%=user.getFullName()%></strong>
+					</span> <a href="logout" class="btn btn-outline-light btn-sm">Logout</a>
+					<%
+					}
+					%>
+				</div>
+			</div>
+		</div>
+	</header>
+	<script
+		src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"
+		integrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI"
+		crossorigin="anonymous"></script>
+</body>
+</html>
