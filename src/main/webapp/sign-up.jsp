@@ -123,9 +123,6 @@ h1 {
 		const today = new Date().toISOString().split('T')[0];
 		dob.setAttribute('max', today);
 		
-		// Lấy các phần tử cần thiết
-		
-
 		// 2. KIỂM TRA MẬT KHẨU KHI RỜI CHUỘT (BLUR)
 		const pwdReEnter = document.getElementById('passwordReEnter');
 		const pwd = document.getElementById('password');

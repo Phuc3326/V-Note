@@ -164,7 +164,7 @@ public class UserDAO implements DAOInterface<User> {
 			
 			// Tao Statement
 			String sql = "UPDATE users "
-					+ "SET username = ?, password = ?, email = ?, dateofbirth = ?, gender = ?, fullname = ?, phone = ?"
+					+ "SET username = ?, password = ?, email = ?, dateofbirth = ?, gender = ?, fullname = ?, phone = ? "
 					+ "WHERE id = ?;";
 			PreparedStatement st = c.prepareStatement(sql);
 			st.setString(1, t.getUserName());

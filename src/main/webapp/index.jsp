@@ -7,24 +7,30 @@
 <meta charset="UTF-8">
 <title>V-Note</title>
 <link
-	href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css"
-	rel="stylesheet"
-	integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB"
-	crossorigin="anonymous">
-<script
-	src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js"
-	integrity="sha384-I7E8VVD/ismYTF4hNIPjVp/Zjvgyol6VFvRkX/vR+Vc4jQkC+hVqc2pM8ODewa9r"
-	crossorigin="anonymous"></script>
-<script
-	src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.min.js"
-	integrity="sha384-G/EV+4j2dNv+tEPo3++6LCgdCROaejBqfUeNjuKAiuXbjrxilcCdDz6ZAVfHWe1Y"
-	crossorigin="anonymous"></script>
+	href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css"
+	rel="stylesheet">
 
 <style>
 a {
 	text-decoration-line: none;
 	color: white;
 }
+.form-control-dark {
+  border-color: var(--bs-gray);
+}
+.form-control-dark:focus {
+  border-color: #fff;
+  box-shadow: 0 0 0 .25rem rgba(255, 255, 255, .25);
+}
+
+.text-small {
+  font-size: 85%;
+}
+
+.dropdown-toggle:not(:focus) {
+  outline: 0;
+}
+
 </style>
 </head>
 <body>
@@ -41,11 +47,8 @@ a {
 				</a>
 				<ul
 					class="nav col-12 col-lg-auto me-lg-auto mb-2 justify-content-center mb-md-0">
-					<li><a href="#" class="nav-link px-2 text-secondary">Home</a></li>
-					<li><a href="#" class="nav-link px-2 text-white">Features</a></li>
-					<li><a href="#" class="nav-link px-2 text-white">Pricing</a></li>
-					<li><a href="#" class="nav-link px-2 text-white">FAQs</a></li>
-					<li><a href="#" class="nav-link px-2 text-white">About</a></li>
+					<li><a href="index.jsp" class="nav-link px-2 text-secondary">Home</a></li>
+					<li><a href="trash.jsp" class="nav-link px-2 text-white">Trash</a></li>
 				</ul>
 				<form class="col-12 col-lg-auto mb-3 mb-lg-0 me-lg-3" role="search">
 					<input type="search"
@@ -66,8 +69,25 @@ a {
 					<%
 					} else {
 					%>
-					<span class="navbar-text me-3"> Welcome, <strong><%=user.getFullName()%></strong>
-					</span> <a href="logout" class="btn btn-outline-light btn-sm">Logout</a>
+					<div class="dropdown d-inline-block">
+						<button class="btn btn-outline-light dropdown-toggle"
+							type="button" id="userMenu" data-bs-toggle="dropdown"
+							aria-expanded="false">Account</button>
+
+						<ul class="dropdown-menu dropdown-menu-end"
+							aria-labelledby="userMenu">
+							<li><h6 class="dropdown-header">
+									Hi,
+									<%=user.getFullName()%></h6></li>
+							<li><hr class="dropdown-divider"></li>
+							<li><a class="dropdown-item" href="edit-profile.jsp">Edit
+									Profile</a></li>
+							<li><a class="dropdown-item" href="change-password.jsp">Change
+									Password</a></li>
+							<li><hr class="dropdown-divider"></li>
+							<li><a class="dropdown-item text-danger" href="logout">Logout</a></li>
+						</ul>
+					</div>
 					<%
 					}
 					%>
@@ -76,8 +96,6 @@ a {
 		</div>
 	</header>
 	<script
-		src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"
-		integrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI"
-		crossorigin="anonymous"></script>
+		src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 </html>
