@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
+<%@ page import="model.User"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -33,6 +34,17 @@ a {
 </head>
 <body>
 	<%
+		Object objSes = session.getAttribute("user");
+		User user = (objSes != null) ? (User) objSes : null;
+		if (user != null) {
+	%>
+		<h1>LOGIN</h1>
+		<h4>You have logged in! Please log out first if you want to log in again.</h4>
+	<%
+		} else {
+	%>
+	
+	<%
 	Object obj = request.getAttribute("error");
 	String error = (obj != null)? obj.toString() : "";
 	String userName = request.getParameter("userName");
@@ -61,6 +73,9 @@ a {
 			</form>
 		</main>
 	</div>
+	<%
+		}
+	%>
 
 	<script
 		src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"

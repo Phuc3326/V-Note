@@ -28,6 +28,18 @@ public class User {
 		this.phone = phone;
 	}
 
+	public User(String id, String userName, String password, String email, Date dateOfBirth, String gender,
+			String fullName, String phone) {
+		this.id = id;
+		this.userName = userName;
+		this.password = password;
+		this.email = email;
+		this.dateOfBirth = dateOfBirth;
+		this.gender = gender;
+		this.fullName = fullName;
+		this.phone = phone;
+	}
+
 	public String getId() {
 		return id;
 	}

@@ -31,11 +31,18 @@ public class SignUp extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		request.getRequestDispatcher("sign-up.jsp");
+	}
+
+	/**
+	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
+	 */
+	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		String fullName = request.getParameter("fullName");
 		String userName = request.getParameter("userName");
 		String password = request.getParameter("password");
 		String email = request.getParameter("email");
-		String dateOfBirthString = request.getParameter("dateOfBirth");
+		Date dateOfBirth = (request.getParameter("dateOfBirth").equals(""))?null:Date.valueOf(request.getParameter("dateOfBirth"));
 		String phone = request.getParameter("phone");
 		String gender = request.getParameter("gender");
 		
@@ -50,19 +57,12 @@ public class SignUp extends HttpServlet {
 			request.getRequestDispatcher(url).forward(request, response);
 		} else {
 			String encryptedPassword = SecurityUtil.toSHA1(password);
-			User user = new User(userName, encryptedPassword, email, Date.valueOf(dateOfBirthString), gender, fullName, phone);
+			User user = new User(userName, encryptedPassword, email, dateOfBirth, gender, fullName, phone);
 			userDAO.insert(user);
 			url = "sign-up-success.jsp";
 			response.sendRedirect(url);
 		}
 		System.out.println(error);
-	}
-
-	/**
-	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
-	 */
-	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		doGet(request, response);
 	}
 
 }

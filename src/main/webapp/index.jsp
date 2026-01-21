@@ -80,7 +80,7 @@ a {
 									Hi,
 									<%=user.getFullName()%></h6></li>
 							<li><hr class="dropdown-divider"></li>
-							<li><a class="dropdown-item" href="edit-profile.jsp">Edit
+							<li><a class="dropdown-item" href="change-information.jsp">Edit
 									Profile</a></li>
 							<li><a class="dropdown-item" href="change-password.jsp">Change
 									Password</a></li>
@@ -89,7 +89,7 @@ a {
 						</ul>
 					</div>
 					<%
-					}
+						}
 					%>
 				</div>
 			</div>

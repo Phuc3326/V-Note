@@ -4,7 +4,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Insert title here</title>
+<title>Sign-Up State</title>
 </head>
 <body>
 <h1> Sign-up successfully! Please return to login page.</h1>
