@@ -9,62 +9,67 @@
 <link
 	href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css"
 	rel="stylesheet">
-<style>
-a {
-	text-decoration-line: none;
-	color: white;
-}
-
-.red {
-	color: red;
-}
-</style>
+<link rel="stylesheet" type="text/css"
+	href="${pageContext.request.contextPath}/css/style.css">
 </head>
-<body>
-	<%
-		Object objSes = session.getAttribute("user");
-		User user = (objSes != null) ? (User) objSes : null;
-		if (user == null) {
-	%>
-		<h1>CHANGE PASSWORD</h1>
-		<h4>You haven't logged in yet! Please log in first to change password.</h4>
-	<%
-		} else {
-	%>
-	
-	<%
-	Object obj = session.getAttribute("msg");
-	String msg = (obj != null) ? obj.toString() : "";
-	session.removeAttribute("msg");
-	%>
-	<div class="container">
-		<h1>CHANGE PASSWORD</h1>
-		<div id="form-register">
-			<form action="${pageContext.request.contextPath}/user-controller?controllerType=change-password" method="post">
-				<div class="form-group">
-					<label for="password">Current Password<span class="red">*</span></label>
-					<input type="password" class="form-control" id="password"
-						name="password">
+<body class="d-flex flex-column min-vh-100">
+	<jsp:include page="/WEB-INF/views/common/header.jsp">
+		<jsp:param value="change-password" name="pageName"/>
+	</jsp:include>
+	<main class="flex-grow-1">
+		<div class="container mt-4">
+			<%
+			Object objSes = session.getAttribute("user");
+			User user = (objSes != null) ? (User) objSes : null;
+			if (user == null) {
+			%>
+			<h1>CHANGE PASSWORD</h1>
+			<h4>You haven't logged in yet! Please log in first to change
+				password.</h4>
+			<%
+			} else {
+			%>
+
+			<%
+			Object obj = session.getAttribute("msg");
+			String msg = (obj != null) ? obj.toString() : "";
+			session.removeAttribute("msg");
+			%>
+			<div class="container">
+				<h1>CHANGE PASSWORD</h1>
+				<div id="form-register">
+					<form
+						action="${pageContext.request.contextPath}/user-controller?controllerType=change-password"
+						method="post">
+						<div class="form-group">
+							<label for="password">Current Password<span class="red">*</span></label>
+							<input type="password" class="form-control" id="password"
+								name="password">
+						</div>
+						<div class="form-group">
+							<label for="newPassword">New Password<span class="red">*</span></label>
+							<input type="password" class="form-control" id="newPassword"
+								name="newPassword" required minlength="8">
+						</div>
+						<div class="form-group">
+							<label for="passwordReEnter">Re-Enter Password<span
+								class="red">*</span><span id="error-password" class="red small"></span></label>
+							<input type="password" class="form-control" id="passwordReEnter"
+								name="passwordReEnter" required>
+						</div>
+						<div class="red"><%=msg%></div>
+						<button type="submit" class="btn btn-primary">Save</button>
+					</form>
 				</div>
-				<div class="form-group">
-					<label for="newPassword">New Password<span class="red">*</span></label>
-					<input type="password" class="form-control" id="newPassword"
-						name="newPassword" required minlength="8">
-				</div>
-				<div class="form-group">
-					<label for="passwordReEnter">Re-Enter Password<span
-						class="red">*</span><span id="error-password" class="red small"></span></label>
-					<input type="password" class="form-control" id="passwordReEnter"
-						name="passwordReEnter" required>
-				</div>
-				<div class="red"><%= msg %></div>
-				<button type="submit" class="btn btn-primary">Save</button>
-			</form>
+			</div>
+			<%
+			}
+			%>
 		</div>
-	</div>
-	<%
-		}
-	%>
+	</main>
+
+
+	<jsp:include page="/WEB-INF/views/common/footer.jsp"></jsp:include>
 	<script>
 		// KIỂM TRA MẬT KHẨU KHI RỜI CHUỘT (BLUR)
 		const pwdReEnter = document.getElementById('passwordReEnter');

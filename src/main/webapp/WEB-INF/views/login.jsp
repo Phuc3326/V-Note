@@ -19,62 +19,73 @@
 	src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.min.js"
 	integrity="sha384-G/EV+4j2dNv+tEPo3++6LCgdCROaejBqfUeNjuKAiuXbjrxilcCdDz6ZAVfHWe1Y"
 	crossorigin="anonymous"></script>
-<style>
-.red {
-	color: red;
-}
 
-h1 {
-	text-align: center;
-}
-a {
-	text-decoration-line: none;
-}
-</style>
+<link rel="stylesheet" type="text/css"
+	href="${pageContext.request.contextPath}/css/style.css">
+
 </head>
-<body>
-	<%
-		Object objSes = session.getAttribute("user");
-		User user = (objSes != null) ? (User) objSes : null;
-		if (user != null) {
-	%>
-		<h1>LOGIN</h1>
-		<h4>You have logged in! Please log out first if you want to log in again.</h4>
-	<%
-		} else {
-	%>
-	
-	<%
-	Object obj = request.getAttribute("message");
-	String msg = (obj != null)? obj.toString() : "";
-	String userName = request.getParameter("userName");
-	userName = (userName != null)? userName : "";
-	%>
-	<div class="container">
-		<main class="form-signin w-100 m-auto">
-			<form action="${pageContext.request.contextPath}/user-controller?controllerType=login" method="POST">
-				<h1 class="h3 mb-3 fw-normal">Please sign in</h1>
-				<div class="form-floating">
-					<input type="text" class="form-control" id="userName" name="userName"
-						placeholder="User name" required value="<%=userName%>"> <label for="userName"> User Name </label>
-				</div>
-				<div class="form-floating">
-					<input type="password" class="form-control" id="password" name="password"
-						placeholder="Password" required> <label for="password">Password</label>
-				</div>
-				<div class="red"> <%= msg %></div>
-				<button class="btn btn-primary w-100 py-2" type="submit">
-					Sign in</button>
-					
-				<a href="${pageContext.request.contextPath}/user-controller?controllerType=sign-up">Do not have account yet? Sign-Up.</a>
-				<p class="mt-5 mb-3 text-body-secondary">© 2017–2025</p>
-			</form>
-		</main>
-	</div>
-	<%
-		}
-	%>
+<body class="d-flex flex-column min-vh-100">
+	<jsp:include page="/WEB-INF/views/common/header.jsp">
+		<jsp:param value="login" name="pageName"/>
+	</jsp:include>
 
+	<main class="flex-grow-1">
+		<div class="container mt-4">
+			<%
+			Object objSes = session.getAttribute("user");
+			User user = (objSes != null) ? (User) objSes : null;
+			if (user != null) {
+			%>
+			<h1>LOGIN</h1>
+			<h4>You have logged in! Please log out first if you want to log
+				in again.</h4>
+			<%
+			} else {
+			%>
+
+			<%
+			Object obj = request.getAttribute("message");
+			String msg = (obj != null) ? obj.toString() : "";
+			String userName = request.getParameter("userName");
+			userName = (userName != null) ? userName : "";
+			%>
+			<div class="container">
+				<main class="form-signin w-100 m-auto">
+					<form
+						action="${pageContext.request.contextPath}/user-controller?controllerType=login"
+						method="POST">
+						<h1 class="h3 mb-3 fw-normal">LOGIN</h1>
+						<div class="form-floating">
+							<input type="text" class="form-control" id="userName"
+								name="userName" placeholder="User name" required
+								value="<%=userName%>"> <label for="userName">
+								User Name </label>
+						</div>
+						<div class="form-floating">
+							<input type="password" class="form-control" id="password"
+								name="password" placeholder="Password" required> <label
+								for="password">Password</label>
+						</div>
+						<div class="red">
+							<%=msg%></div>
+						<button class="btn btn-primary w-100 py-2" type="submit">
+							Sign in</button>
+
+						<a
+							href="${pageContext.request.contextPath}/user-controller?controllerType=sign-up">Do
+							not have account yet? Sign-Up.</a>
+						<p class="mt-5 mb-3 text-body-secondary">© 2017–2025</p>
+					</form>
+				</main>
+			</div>
+			<%
+			}
+			%>
+		</div>
+	</main>
+
+
+	<jsp:include page="/WEB-INF/views/common/footer.jsp"></jsp:include>
 	<script
 		src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"
 		integrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI"

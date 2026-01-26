@@ -10,87 +10,19 @@
 	href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css"
 	rel="stylesheet">
 
-<style>
-a {
-	text-decoration-line: none;
-	color: white;
-}
-.form-control-dark {
-  border-color: var(--bs-gray);
-}
-.form-control-dark:focus {
-  border-color: #fff;
-  box-shadow: 0 0 0 .25rem rgba(255, 255, 255, .25);
-}
+<link rel="stylesheet" type="text/css"
+	href="${pageContext.request.contextPath}/css/style.css">
 
-.text-small {
-  font-size: 85%;
-}
-
-.dropdown-toggle:not(:focus) {
-  outline: 0;
-}
-
-</style>
 </head>
-<body>
-	<header class="p-3 text-bg-dark">
-		<div class="container">
-			<div
-				class="d-flex flex-wrap align-items-center justify-content-center justify-content-lg-start">
-				<a href="/">
-				
-				</a>
-				<ul
-					class="nav col-12 col-lg-auto me-lg-auto mb-2 justify-content-center mb-md-0">
-					<li><a href="${pageContext.request.contextPath}" class="nav-link px-2 text-secondary">Home</a></li>
-					<li><a href="${pageContext.request.contextPath}/note-controller?controllerType=trash" class="nav-link px-2 text-white">Trash</a></li>
-				</ul>
-				<form class="col-12 col-lg-auto mb-3 mb-lg-0 me-lg-3" role="search">
-					<input type="search"
-						class="form-control form-control-dark text-bg-dark"
-						placeholder="Search..." aria-label="Search">
-				</form>
-				<div class="text-end">
-					<button type="button" class="btn btn-outline-light me-2">
-						Find</button>
-					<%
-					Object obj = session.getAttribute("user");
-					User user = (obj != null) ? (User) obj : null;
-					if (user == null) {
-					%>
-					<button type="button" class="btn btn-warning">
-						<a href="${pageContext.request.contextPath}/user-controller?controllerType=login">Login</a>
-					</button>
-					<%
-					} else {
-					%>
-					<div class="dropdown d-inline-block">
-						<button class="btn btn-outline-light dropdown-toggle"
-							type="button" id="userMenu" data-bs-toggle="dropdown"
-							aria-expanded="false">Account</button>
-
-						<ul class="dropdown-menu dropdown-menu-end"
-							aria-labelledby="userMenu">
-							<li><h6 class="dropdown-header">
-									Hi,
-									<%=user.getFullName()%></h6></li>
-							<li><hr class="dropdown-divider"></li>
-							<li><a class="dropdown-item" href="${pageContext.request.contextPath}/user-controller?controllerType=change-information">Edit
-									Profile</a></li>
-							<li><a class="dropdown-item" href="${pageContext.request.contextPath}/user-controller?controllerType=change-password">Change
-									Password</a></li>
-							<li><hr class="dropdown-divider"></li>
-							<li><a class="dropdown-item text-danger" href="${pageContext.request.contextPath}/user-controller?controllerType=logout">Logout</a></li>
-						</ul>
-					</div>
-					<%
-						}
-					%>
-				</div>
-			</div>
-		</div>
-	</header>
+<body class="d-flex flex-column min-vh-100">
+	<jsp:include page="/WEB-INF/views/common/header.jsp">
+		<jsp:param value="index" name="pageName"/>
+	</jsp:include>
+	
+	<main class="flex-grow-1">
+        <div class="container mt-4"></div>
+    </main>
+	<jsp:include page="/WEB-INF/views/common/footer.jsp"></jsp:include>
 	<script
 		src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
 </body>
