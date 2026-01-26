@@ -6,19 +6,18 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
 
 /**
- * Servlet implementation class Logout
+ * Servlet implementation class HomeServlet
  */
-@WebServlet("/logout")
-public class Logout extends HttpServlet {
+@WebServlet("/")
+public class HomeServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public Logout() {
+    public HomeServlet() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -27,14 +26,7 @@ public class Logout extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// Tham so false nghia la khong tao moi mot Session khi dang khong ton tai Session va tra ve null
-		HttpSession session = request.getSession(false); 
-		
-		if (session != null) {
-			session.invalidate();
-		}
-		
-		response.sendRedirect("index.jsp");
+		request.getRequestDispatcher("/WEB-INF/views/index.jsp").forward(request, response);
 	}
 
 	/**

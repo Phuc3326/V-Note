@@ -48,8 +48,9 @@ h1 {
 	%>
 	
 	<%
-	Object obj = request.getAttribute("msg");
+	Object obj = session.getAttribute("msg");
 	String msg = (obj != null) ? obj.toString() : "";
+	session.removeAttribute("msg");
 	
 	String fullName = user.getFullName();
 	String dateOfBirth = (user.getDateOfBirth() != null) ? user.getDateOfBirth().toString() : "";
@@ -58,9 +59,9 @@ h1 {
 	String gender = user.getGender();
 	%>
 	<div class="container">
-		<h1>REGISTER FORM</h1>
+		<h1>CHANGE INFORMATION</h1>
 		<div id="form-register">
-			<form action="change-information" method="post">
+			<form action="${pageContext.request.contextPath}/user-controller?controllerType=change-information" method="post">
 				<div class="form-group">
 					<label for="fullName">Full name<span class="red">*</span></label> <input
 						type="text" class="form-control" id="fullName" name="fullName"

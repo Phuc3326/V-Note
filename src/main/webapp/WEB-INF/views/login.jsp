@@ -45,16 +45,14 @@ a {
 	%>
 	
 	<%
-	Object obj = request.getAttribute("error");
-	String error = (obj != null)? obj.toString() : "";
+	Object obj = request.getAttribute("message");
+	String msg = (obj != null)? obj.toString() : "";
 	String userName = request.getParameter("userName");
 	userName = (userName != null)? userName : "";
-	String password = request.getParameter("password");
-	password = (password != null)? password : "";
 	%>
 	<div class="container">
 		<main class="form-signin w-100 m-auto">
-			<form action="login" method="POST">
+			<form action="${pageContext.request.contextPath}/user-controller?controllerType=login" method="POST">
 				<h1 class="h3 mb-3 fw-normal">Please sign in</h1>
 				<div class="form-floating">
 					<input type="text" class="form-control" id="userName" name="userName"
@@ -62,13 +60,13 @@ a {
 				</div>
 				<div class="form-floating">
 					<input type="password" class="form-control" id="password" name="password"
-						placeholder="Password" required value="<%=password%>"> <label for="password">Password</label>
+						placeholder="Password" required> <label for="password">Password</label>
 				</div>
-				<div class="red"> <%= error %></div>
+				<div class="red"> <%= msg %></div>
 				<button class="btn btn-primary w-100 py-2" type="submit">
 					Sign in</button>
 					
-				<a href="sign-up.jsp">Do not have account yet? Sign-Up.</a>
+				<a href="${pageContext.request.contextPath}/user-controller?controllerType=sign-up">Do not have account yet? Sign-Up.</a>
 				<p class="mt-5 mb-3 text-body-secondary">© 2017–2025</p>
 			</form>
 		</main>

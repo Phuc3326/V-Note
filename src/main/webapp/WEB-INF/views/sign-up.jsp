@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
+<%@ page import="util.CheckValidData"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -35,30 +36,38 @@ h1 {
 </head>
 <body>
 	<%
-	Object obj = request.getAttribute("error");
-	String error = (obj != null) ? obj.toString() : "";
+	Object obj = request.getAttribute("message");
+	String msg = "";
+	if (obj != null) {
+		msg = obj.toString();
+	} else {
+		Object objSes = session.getAttribute("message");
+		msg = (objSes != null) ? objSes.toString() : "";
+		session.removeAttribute("message");
+	}
 	
 	String fullName = request.getParameter("fullName");
 	fullName = (fullName != null) ? fullName : "";
 	String userName = request.getParameter("userName");
 	userName = (userName != null) ? userName : "";
-	String password = request.getParameter("password");
-	password = (password != null) ? password : "";
-	String passwordReEnter = request.getParameter("passwordReEnter");
-	passwordReEnter = (passwordReEnter != null) ? passwordReEnter : "";
+	
 	String dateOfBirth = request.getParameter("dateOfBirth");
 	dateOfBirth = (dateOfBirth != null) ? dateOfBirth : "";
+	if (!CheckValidData.isValidDateOfBirth(dateOfBirth)) dateOfBirth = "";
+	
 	String phone = request.getParameter("phone");
 	phone = (phone != null) ? phone : "";
 	String email = request.getParameter("email");
 	email = (email != null) ? email : "";
+	
 	String gender = request.getParameter("gender");
 	gender = (gender != null) ? gender : "";
+	if (!CheckValidData.isValidGender(gender)) gender = "";
 	%>
 	<div class="container">
 		<h1>REGISTER FORM</h1>
 		<div id="form-register">
-			<form action="sign-up" method="post">
+			<form action="${pageContext.request.contextPath}/user-controller?controllerType=sign-up" method="post">
 				<div class="form-group">
 					<label for="fullName">Full name<span class="red">*</span></label> <input
 						type="text" class="form-control" id="fullName" name="fullName"
@@ -72,13 +81,13 @@ h1 {
 				<div class="form-group">
 					<label for="password">Password<span class="red">*</span></label> <input
 						type="password" class="form-control" id="password" name="password"
-						required minlength="8" value="<%=password%>">
+						required minlength="8">
 				</div>
 				<div class="form-group">
 					<label for="passwordReEnter">Re-Enter Password<span
 						class="red">*</span><span id="error-password" class="red small"></span></label>
 					<input type="text" class="form-control" id="passwordReEnter" name="passwordReEnter"
-						required value="<%=passwordReEnter%>">
+						required>
 				</div>
 				<div class="form-group">
 					<label for="email">Email address<span class="red">*</span></label>
@@ -108,7 +117,7 @@ h1 {
 							class="form-check-label" for="genderFemale">Female</label>
 					</div>
 				</div>
-				<div class="red"><%= error %></div>
+				<div class="red"><%= msg %></div>
 				<button type="submit" class="btn btn-primary">Sign-up</button>
 			</form>
 		</div>

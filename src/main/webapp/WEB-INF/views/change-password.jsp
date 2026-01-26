@@ -33,18 +33,14 @@ a {
 	%>
 	
 	<%
-	Object obj = request.getAttribute("msg");
+	Object obj = session.getAttribute("msg");
 	String msg = (obj != null) ? obj.toString() : "";
-	
-	String newPassword = request.getParameter("newPassword");
-	newPassword = (newPassword != null) ? newPassword : "";
-	String passwordReEnter = request.getParameter("passwordReEnter");
-	passwordReEnter = (passwordReEnter != null) ? passwordReEnter : "";
+	session.removeAttribute("msg");
 	%>
 	<div class="container">
 		<h1>CHANGE PASSWORD</h1>
 		<div id="form-register">
-			<form action="change-password" method="post">
+			<form action="${pageContext.request.contextPath}/user-controller?controllerType=change-password" method="post">
 				<div class="form-group">
 					<label for="password">Current Password<span class="red">*</span></label>
 					<input type="password" class="form-control" id="password"
@@ -53,13 +49,13 @@ a {
 				<div class="form-group">
 					<label for="newPassword">New Password<span class="red">*</span></label>
 					<input type="password" class="form-control" id="newPassword"
-						name="newPassword" required minlength="8" value="<%=newPassword%>">
+						name="newPassword" required minlength="8">
 				</div>
 				<div class="form-group">
 					<label for="passwordReEnter">Re-Enter Password<span
 						class="red">*</span><span id="error-password" class="red small"></span></label>
 					<input type="password" class="form-control" id="passwordReEnter"
-						name="passwordReEnter" required value="<%=passwordReEnter%>">
+						name="passwordReEnter" required>
 				</div>
 				<div class="red"><%= msg %></div>
 				<button type="submit" class="btn btn-primary">Save</button>
