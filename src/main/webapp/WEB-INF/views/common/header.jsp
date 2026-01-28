@@ -61,17 +61,35 @@
                     <a href="${pageContext.request.contextPath}/user-controller?controllerType=login" class="btn btn-warning">Login</a>
                     <% } %>
                 <% } else { %>
-                    <div class="dropdown">
-                        <button class="btn btn-outline-light dropdown-toggle" type="button" id="userMenu" data-bs-toggle="dropdown">
-                            Account
-                        </button>
-                        <ul class="dropdown-menu dropdown-menu-end shadow">
-                            <li><h6 class="dropdown-header">Hi, <%=user.getFullName()%></h6></li>
-                            <li><hr class="dropdown-divider"></li>
-                            <li><a class="dropdown-item text-danger" href="${pageContext.request.contextPath}/user-controller?controllerType=logout">Logout</a></li>
-                        </ul>
-                    </div>
-                <% } %>
+				<div class="dropdown">
+					<button class="btn btn-outline-light dropdown-toggle" type="button"
+						id="userMenu" data-bs-toggle="dropdown" aria-expanded="false">
+						<i class="bi bi-person-circle me-1"></i> Account
+					</button>
+					<ul class="dropdown-menu dropdown-menu-end shadow"
+						aria-labelledby="userMenu">
+						<li><h6 class="dropdown-header">
+								Hi,
+								<%=user.getFullName()%></h6></li>
+						<li><hr class="dropdown-divider"></li>
+
+						<li><a class="dropdown-item"
+							href="${pageContext.request.contextPath}/user-controller?controllerType=change-information">
+								<i class="bi bi-person-gear me-2"></i>Edit Profile
+						</a></li>
+						<li><a class="dropdown-item"
+							href="${pageContext.request.contextPath}/user-controller?controllerType=change-password">
+								<i class="bi bi-shield-lock me-2"></i>Change Password
+						</a></li>
+
+						<li><hr class="dropdown-divider"></li>
+						<li><a class="dropdown-item text-danger"
+							href="${pageContext.request.contextPath}/user-controller?controllerType=logout">
+								<i class="bi bi-box-arrow-right me-2"></i>Logout
+						</a></li>
+					</ul>
+				</div>
+				<% } %>
             </div>
         </div>
     </div>
