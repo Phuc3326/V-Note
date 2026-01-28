@@ -10,8 +10,11 @@ public class Note {
 	private String content;
 	private Date createDate;
 	private Date lastEditDate;
+	private boolean isArchived;
+	
 	public Note() {
 		this.id = generateId();
+		this.isArchived = false;
 	}
 	public Note(User user, String title, String content, Date createDate, Date lastEditDate) {
 		this.id = generateId();
@@ -20,6 +23,18 @@ public class Note {
 		this.content = content;
 		this.createDate = createDate;
 		this.lastEditDate = lastEditDate;
+		this.isArchived = false;
+	}
+	
+	public Note(User user, String title, String content, Date createDate, Date lastEditDate,
+			boolean isArchived) {
+		this.id = generateId();
+		this.user = user;
+		this.title = title;
+		this.content = content;
+		this.createDate = createDate;
+		this.lastEditDate = lastEditDate;
+		this.isArchived = isArchived;
 	}
 	public String getId() {
 		return id;
@@ -58,6 +73,12 @@ public class Note {
 		this.lastEditDate = lastEditDate;
 	}	
 	
+	public boolean isArchived() {
+		return isArchived;
+	}
+	public void setArchived(boolean isArchived) {
+		this.isArchived = isArchived;
+	}
 	private String generateId() {
 		java.util.Date now = new java.util.Date();
         SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMddhhmmss");

@@ -35,6 +35,7 @@ public class UserController extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		request.setCharacterEncoding("UTF-8");
 		String type = request.getParameter("controllerType");
 		
 		if (type == null || type.isEmpty()) {
@@ -71,6 +72,7 @@ public class UserController extends HttpServlet {
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		request.setCharacterEncoding("UTF-8");
 		String type = request.getParameter("controllerType");
 		
 		if (type == null || type.isEmpty()) {
@@ -213,9 +215,6 @@ public class UserController extends HttpServlet {
 			} else {
 				String encryptedPassword = SecurityUtil.toSHA1(password);
 				User user = new User(userName, encryptedPassword, email, date_of_birth, gender, fullName, phone);
-//				userDAO.insert(user);
-//				request.getSession().setAttribute("message", "Create account successfully.");
-//				response.sendRedirect(request.getContextPath() + "/user-controller?controllerType=sign-up");
 				
 				HttpSession session = request.getSession();
 				String sysOtp = Email.generateOTP();
@@ -237,62 +236,6 @@ public class UserController extends HttpServlet {
 			}
 		}
 	}
-	
-//	private void signup(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-//		String fullName = request.getParameter("fullName");
-//		String userName = request.getParameter("userName");
-//		String password = request.getParameter("password");
-//		String passwordReEnter = request.getParameter("passwordReEnter");
-//		String email = request.getParameter("email");
-//		String dateOfBirth = request.getParameter("dateOfBirth");
-//		String phone = request.getParameter("phone");
-//		String gender = request.getParameter("gender");
-//		
-//		String msg = "";
-//		if (!CheckValidData.isValidFullName(fullName)) {
-//			msg += "Full name can not be empty!\n";
-//		}
-//		if (!CheckValidData.isValidUserName(userName)) {
-//			msg += "User name can not be empty!\n";
-//		}
-//		if (!CheckValidData.isValidPassword(password)) {
-//			msg += "Password must contain at least 8 character!\n";
-//		}
-//		else if (!CheckValidData.isValidReEnterPassword(password, passwordReEnter)) {
-//			msg += "Re-enter password must match the password!\n";
-//		}
-//		if (!CheckValidData.isValidPhone(phone)) {
-//			msg += "Number phone's format invalid!\n";
-//		}
-//		if (!CheckValidData.isValidEmail(email)) {
-//			msg += "email's format invalid!\n";
-//		}
-//		if (!CheckValidData.isValidDateOfBirth(dateOfBirth)) {
-//			msg += "Date of birth's format invalid!\n";
-//		}
-//		if (!CheckValidData.isValidGender(gender)) {
-//			msg += "Gender's format invalid!\n";
-//		}
-//		
-//		if (!msg.isEmpty()) {
-//			request.setAttribute("message", msg);
-//			request.getRequestDispatcher("/WEB-INF/views/sign-up.jsp").forward(request, response);
-//		} else {
-//			Date date_of_birth = (dateOfBirth.isEmpty()) ? null : Date.valueOf(dateOfBirth);
-//			UserDAO userDAO = new UserDAO();
-//			if (userDAO.selectByUserName(userName) != null) {
-//				msg = "User name already exists!\n";
-//				request.setAttribute("message", msg);
-//				request.getRequestDispatcher("/WEB-INF/views/sign-up.jsp").forward(request, response);
-//			} else {
-//				String encryptedPassword = SecurityUtil.toSHA1(password);
-//				User user = new User(userName, encryptedPassword, email, date_of_birth, gender, fullName, phone);
-//				userDAO.insert(user);
-//				request.getSession().setAttribute("message", "Create account successfully.");
-//				response.sendRedirect(request.getContextPath() + "/user-controller?controllerType=sign-up");
-//			}
-//		}
-//	}
 	
 	private void login(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		HttpSession sessionCheck = request.getSession();

@@ -1,71 +1,73 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-	pageEncoding="UTF-8"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ page import="model.User"%>
 
 <%
-String pageName = request.getParameter("pageName");
-Object obj = session.getAttribute("user");
-User user = (obj != null) ? (User) obj : null;
+    // Lấy tham số pageName từ jsp:param của trang cha
+    String pageName = request.getParameter("pageName");
+    // Lấy thông tin user từ session để hiển thị menu account
+    Object obj = session.getAttribute("user");
+    User user = (obj != null) ? (User) obj : null;
+    
+    // Kiểm tra trang hiện tại để áp dụng màu sắc (Active link logic)
+    boolean isIndex = "index".equals(pageName);
+    boolean isTrash = "trash".equals(pageName);
 %>
-<header class="p-3 text-bg-dark">
-	<div class="container">
-		<div
-			class="d-flex flex-wrap align-items-center justify-content-center justify-content-lg-start">
-			<a href="/"> </a>
-			<ul
-				class="nav col-12 col-lg-auto me-lg-auto mb-2 justify-content-center mb-md-0">
-				<li><a href="${pageContext.request.contextPath}"
-					class="nav-link px-2 text-secondary">Home</a></li>
-				<% if ("index".equals(pageName)) { %>
-				<li><a
-					href="${pageContext.request.contextPath}/note-controller?controllerType=trash"
-					class="nav-link px-2 text-white">Trash</a></li>
-				<% } %>
 
-			</ul>
-			<% if ("index".equals(pageName)) { %>
-			<form class="col-12 col-lg-auto mb-3 mb-lg-0 me-lg-3" role="search">
-				<input type="search"
-					class="form-control form-control-dark text-bg-dark"
-					placeholder="Search..." aria-label="Search">
-			</form>
-			<div class="text-end">
-				<button type="button" class="btn btn-outline-light me-2">
-					Find</button>
-			<% } %>
-				
-				<% if (user == null) { %>
-				<% if (!"login".equals(pageName)) { %>
-				<button type="button" class="btn btn-warning">
-					<a style="color:white" href="${pageContext.request.contextPath}/user-controller?controllerType=login">Login</a>
-				</button>
-				<% } %>
-				<% } else { %>
-				<div class="dropdown d-inline-block">
-					<button class="btn btn-outline-light dropdown-toggle" type="button"
-						id="userMenu" data-bs-toggle="dropdown" aria-expanded="false">Account</button>
+<header class="p-3 text-bg-dark border-bottom border-secondary">
+    <div class="container">
+        <div class="d-flex align-items-center justify-content-between">
+            
+            <div class="d-flex align-items-center">
+                <a href="${pageContext.request.contextPath}/" 
+                   class="text-white text-decoration-none fw-bold fs-4 pe-3 me-3 border-end border-secondary line-height-1">
+                    V-Note
+                </a>
 
-					<ul class="dropdown-menu dropdown-menu-end"
-						aria-labelledby="userMenu">
-						<li><h6 class="dropdown-header">
-								Hi,
-								<%=user.getFullName()%></h6></li>
-						<li><hr class="dropdown-divider"></li>
-						<li><a class="dropdown-item"
-							href="${pageContext.request.contextPath}/user-controller?controllerType=change-information">Edit
-								Profile</a></li>
-						<li><a class="dropdown-item"
-							href="${pageContext.request.contextPath}/user-controller?controllerType=change-password">Change
-								Password</a></li>
-						<li><hr class="dropdown-divider"></li>
-						<li><a class="dropdown-item text-danger"
-							href="${pageContext.request.contextPath}/user-controller?controllerType=logout">Logout</a></li>
-					</ul>
-				</div>
-				<%
-					}
-				%>
-			</div>
-		</div>
-	</div>
+                <ul class="nav mb-0">
+                    <li>
+                        <a href="${pageContext.request.contextPath}/note-controller?controllerType=index" 
+                           class="nav-link px-2 <%= isIndex ? "text-secondary" : "text-white" %>">
+                           Home
+                        </a>
+                    </li>
+                    <% if (isIndex || isTrash) { %>
+                    <li>
+                        <a href="${pageContext.request.contextPath}/note-controller?controllerType=trash" 
+                           class="nav-link px-2 <%= isTrash ? "text-secondary" : "text-white" %>">
+                           Trash
+                        </a>
+                    </li>
+                    <% } %>
+                </ul>
+            </div>
+
+            <div class="d-flex align-items-center">
+                <% if (isIndex) { %>
+                <form class="d-none d-lg-flex me-3" role="search">
+                    <input type="search" class="form-control form-control-dark text-bg-dark border-secondary" 
+                           placeholder="Search..." aria-label="Search">
+                    <button type="button" class="btn btn-outline-light ms-2">Find</button>
+                </form>
+                <% } %>
+                
+                <%-- Phần Login / Account Dropdown giữ nguyên logic cũ --%>
+                <% if (user == null) { %>
+                    <% if (!"login".equals(pageName)) { %>
+                    <a href="${pageContext.request.contextPath}/user-controller?controllerType=login" class="btn btn-warning">Login</a>
+                    <% } %>
+                <% } else { %>
+                    <div class="dropdown">
+                        <button class="btn btn-outline-light dropdown-toggle" type="button" id="userMenu" data-bs-toggle="dropdown">
+                            Account
+                        </button>
+                        <ul class="dropdown-menu dropdown-menu-end shadow">
+                            <li><h6 class="dropdown-header">Hi, <%=user.getFullName()%></h6></li>
+                            <li><hr class="dropdown-divider"></li>
+                            <li><a class="dropdown-item text-danger" href="${pageContext.request.contextPath}/user-controller?controllerType=logout">Logout</a></li>
+                        </ul>
+                    </div>
+                <% } %>
+            </div>
+        </div>
+    </div>
 </header>

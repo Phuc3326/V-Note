@@ -33,7 +33,8 @@ public class NoteDAO implements DAOInterface<Note> {
 				note.setTitle(rs.getString("title"));
 				note.setContent(rs.getString("content"));
 				note.setCreateDate(rs.getDate("createdate"));
-				note.setLastEditDate(rs.getDate("lastEditDate"));
+				note.setLastEditDate(rs.getDate("lasteditdate"));
+				note.setArchived(rs.getBoolean("isarchived"));
 			}
 			
 			// Ngat ket noi database
@@ -68,7 +69,8 @@ public class NoteDAO implements DAOInterface<Note> {
 				note.setTitle(rs.getString("title"));
 				note.setContent(rs.getString("content"));
 				note.setCreateDate(rs.getDate("createdate"));
-				note.setLastEditDate(rs.getDate("lastEditDate"));
+				note.setLastEditDate(rs.getDate("lasteditdate"));
+				note.setArchived(rs.getBoolean("isarchived"));
 				result.add(note);
 			}
 			
@@ -87,8 +89,8 @@ public class NoteDAO implements DAOInterface<Note> {
 			Connection c = JDBCUtil.getConnection();
 			
 			// Tao Statement
-			String sql = "INSERT INTO notes (id, user, title, content, createdate, lasteditdate) "
-					+ "VALUES (?, ?, ?, ?, ?, ?);";
+			String sql = "INSERT INTO notes (id, userid, title, content, createdate, lasteditdate, isarchived) "
+					+ "VALUES (?, ?, ?, ?, ?, ?, ?);";
 			PreparedStatement st = c.prepareStatement(sql);
 			st.setString(1, t.getId());
 			st.setString(2, t.getUser().getId());
@@ -96,6 +98,7 @@ public class NoteDAO implements DAOInterface<Note> {
 			st.setString(4, t.getContent());
 			st.setDate(5, t.getCreateDate());
 			st.setDate(6, t.getLastEditDate());
+			st.setBoolean(7, t.isArchived());
 			
 			// Thuc thi Statement
 			int result = st.executeUpdate();
@@ -125,7 +128,7 @@ public class NoteDAO implements DAOInterface<Note> {
 			
 			// Tao Statement
 			String sql = "UPDATE notes "
-					+ "SET userid = ?, title = ?, content = ?, createdate = ?, lasteditdate = ? "
+					+ "SET userid = ?, title = ?, content = ?, createdate = ?, lasteditdate = ?, isarchived = ? "
 					+ "WHERE id = ?;";
 			PreparedStatement st = c.prepareStatement(sql);
 			st.setString(1, t.getUser().getId());
@@ -133,7 +136,8 @@ public class NoteDAO implements DAOInterface<Note> {
 			st.setString(3, t.getContent());
 			st.setDate(4, t.getCreateDate());
 			st.setDate(5, t.getLastEditDate());
-			st.setString(6, t.getId());
+			st.setBoolean(6, t.isArchived());
+			st.setString(7, t.getId());
 			
 			// Thuc thi Statement
 			int result = st.executeUpdate();
@@ -185,5 +189,35 @@ public class NoteDAO implements DAOInterface<Note> {
 			e.printStackTrace();
 			return false;
 		}
+	}
+	
+	public List<Note> selectAllByUserId(String userId, boolean isArchived) {
+	    List<Note> result = new ArrayList<>();
+	    UserDAO userDAO = new UserDAO();
+	    try {
+	        Connection c = JDBCUtil.getConnection();
+	        // Lọc theo cả UserId và trạng thái Thùng rác
+	        String sql = "SELECT * FROM notes WHERE userid = ? AND isarchived = ? ORDER BY lasteditdate DESC;";
+	        PreparedStatement st = c.prepareStatement(sql);
+	        st.setString(1, userId);
+	        st.setBoolean(2, isArchived);
+	        
+	        ResultSet rs = st.executeQuery();
+	        while (rs.next()) {
+	            Note note = new Note();
+	            note.setId(rs.getString("id"));
+	            note.setUser(userDAO.selectById(rs.getString("userid")));
+	            note.setTitle(rs.getString("title"));
+	            note.setContent(rs.getString("content"));
+	            note.setCreateDate(rs.getDate("createdate"));
+	            note.setLastEditDate(rs.getDate("lasteditdate"));
+	            note.setArchived(rs.getBoolean("isarchived"));
+	            result.add(note);
+	        }
+	        JDBCUtil.closeConnection(c);
+	    } catch (SQLException e) {
+	        e.printStackTrace();
+	    }
+	    return result;
 	}
 }
