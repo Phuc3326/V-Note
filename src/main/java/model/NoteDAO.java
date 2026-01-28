@@ -220,4 +220,32 @@ public class NoteDAO implements DAOInterface<Note> {
 	    }
 	    return result;
 	}
+	
+	public List<Note> searchByTitle(String userId, String keyword) {
+	    List<Note> result = new ArrayList<>();
+	    UserDAO userDAO = new UserDAO();
+	    try {
+	        Connection c = JDBCUtil.getConnection();
+	        // Sử dụng ILIKE (trong Postgres) hoặc LIKE để tìm kiếm gần đúng
+	        String sql = "SELECT * FROM notes WHERE userid = ? AND isarchived = false AND title ILIKE ? ORDER BY lasteditdate DESC;";
+	        PreparedStatement st = c.prepareStatement(sql);
+	        st.setString(1, userId);
+	        st.setString(2, "%" + keyword + "%"); // Tìm kiếm chuỗi chứa keyword
+	        
+	        ResultSet rs = st.executeQuery();
+	        while (rs.next()) {
+	            Note note = new Note();
+	            note.setId(rs.getString("id"));
+	            note.setUser(userDAO.selectById(rs.getString("userid")));
+	            note.setTitle(rs.getString("title"));
+	            note.setContent(rs.getString("content"));
+	            note.setCreateDate(rs.getDate("createdate"));
+	            note.setLastEditDate(rs.getDate("lasteditdate"));
+	            note.setArchived(rs.getBoolean("isarchived"));
+	            result.add(note);
+	        }
+	        JDBCUtil.closeConnection(c);
+	    } catch (SQLException e) { e.printStackTrace(); }
+	    return result;
+	}
 }

@@ -48,7 +48,21 @@ public class NoteController extends HttpServlet {
             case "trash":
                 displayTrash(request, response, user); // Hàm mới
                 break;
+            case "search":
+            	search(request, response, user);
+                break;
         }
+	}
+	
+	
+
+	private void search(HttpServletRequest request, HttpServletResponse response, User user) throws ServletException, IOException {
+		String keyword = request.getParameter("keyword");
+		NoteDAO noteDAO = new NoteDAO();
+        List<Note> searchResults = noteDAO.searchByTitle(user.getId(), keyword);
+        request.setAttribute("userNotes", searchResults);
+        request.setAttribute("keyword", keyword);
+        request.getRequestDispatcher("/WEB-INF/views/index.jsp").forward(request, response);
 	}
 
 	/**

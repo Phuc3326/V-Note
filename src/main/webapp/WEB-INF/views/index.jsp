@@ -29,9 +29,25 @@
 				<!-- 1. Trường hợp: Danh sách ghi chú RỖNG -->
 				<c:if test="${empty userNotes}">
 					<div class="col-12 text-center mt-5">
-						<i class="bi bi-sticky text-secondary" style="font-size: 4rem;"></i>
-						<p class="text-secondary mt-3">Bạn chưa có ghi chú nào. Hãy
-							nhấn nút (+) để tạo nhé!</p>
+						<c:choose>
+							<%-- Trường hợp: Đang tìm kiếm nhưng không thấy kết quả --%>
+							<c:when test="${not empty keyword}">
+								<i class="bi bi-search text-secondary" style="font-size: 4rem;"></i>
+								<p class="text-secondary mt-3">
+									Không tìm thấy ghi chú nào khớp với từ khóa "<strong>${keyword}</strong>".
+								</p>
+								<a
+									href="${pageContext.request.contextPath}/note-controller?controllerType=index"
+									class="btn btn-link text-warning">Quay lại danh sách chính</a>
+							</c:when>
+
+							<%-- Trường hợp: Trang chủ thực sự chưa có ghi chú nào --%>
+							<c:otherwise>
+								<i class="bi bi-sticky text-secondary" style="font-size: 4rem;"></i>
+								<p class="text-secondary mt-3">Bạn chưa có ghi chú nào. Hãy
+									nhấn nút (+) để tạo nhé!</p>
+							</c:otherwise>
+						</c:choose>
 					</div>
 				</c:if>
 

@@ -43,14 +43,19 @@
 
             <div class="d-flex align-items-center">
                 <% if (isIndex) { %>
-                <form class="d-none d-lg-flex me-3" role="search">
-                    <input type="search" class="form-control form-control-dark text-bg-dark border-secondary" 
-                           placeholder="Search..." aria-label="Search">
-                    <button type="button" class="btn btn-outline-light ms-2">Find</button>
-                </form>
-                <% } %>
+				<form action="note-controller" method="GET"
+					class="d-flex align-items-center mb-3 mb-lg-0 me-lg-3"
+					role="search">
+					<input type="hidden" name="controllerType" value="search">
+
+					<input type="search" name="keyword" value="${keyword}"
+						class="form-control form-control-dark text-bg-dark border-secondary"
+						placeholder="Search..." aria-label="Search">
+
+					<button type="submit" class="btn btn-outline-light ms-2">Find</button>
+				</form>
+				<% } %>
                 
-                <%-- Phần Login / Account Dropdown giữ nguyên logic cũ --%>
                 <% if (user == null) { %>
                     <% if (!"login".equals(pageName)) { %>
                     <a href="${pageContext.request.contextPath}/user-controller?controllerType=login" class="btn btn-warning">Login</a>
