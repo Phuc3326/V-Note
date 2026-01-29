@@ -49,33 +49,46 @@
 			String userName = request.getParameter("userName");
 			userName = (userName != null) ? userName : "";
 			%>
-			<div class="container">
-				<main class="form-signin w-100 m-auto">
-					<form
-						action="${pageContext.request.contextPath}/user-controller?controllerType=login"
-						method="POST">
-						<h1 class="h3 mb-3 fw-normal">LOGIN</h1>
-						<div class="form-floating">
-							<input type="text" class="form-control" id="userName"
-								name="userName" placeholder="User name" required
-								value="<%=userName%>"> <label for="userName">
-								User Name </label>
-						</div>
-						<div class="form-floating">
-							<input type="password" class="form-control" id="password"
-								name="password" placeholder="Password" required> <label
-								for="password">Password</label>
-						</div>
-						<div class="red">
-							<%=msg%></div>
-						<button class="btn btn-primary w-100 py-2" type="submit">
-							Sign in</button>
+			<div class="container mt-5">
+				<div class="row justify-content-center">
+					<div class="col-md-4">
+						<main class="form-signin w-100 m-auto">
+							<form
+								action="${pageContext.request.contextPath}/user-controller?controllerType=login"
+								method="POST">
+								<h1 class="h3 mb-4 fw-normal text-center">LOGIN</h1>
 
-						<a
-							href="${pageContext.request.contextPath}/user-controller?controllerType=sign-up">Do
-							not have account yet? Sign-Up.</a>
-					</form>
-				</main>
+								<%-- Ô nhập User Name --%>
+								<div class="mb-3">
+									<label for="userName" class="form-label">User Name</label> <input
+										type="text" class="form-control" id="userName" name="userName"
+										required value="<%=userName%>">
+								</div>
+
+								<%-- Ô nhập Password --%>
+								<div class="mb-3">
+									<label for="password" class="form-label">Password</label> <input
+										type="password" class="form-control" id="password"
+										name="password" required>
+								</div>
+
+								<div class="text-danger mb-3">
+									<%=msg%>
+								</div>
+
+								<button class="btn btn-primary w-100 py-2 mb-3" type="submit">
+									Sign in</button>
+
+								<div class="text-center">
+									<a
+										href="${pageContext.request.contextPath}/user-controller?controllerType=sign-up"
+										class="text-decoration-none">Do not have account yet?
+										Sign-Up.</a>
+								</div>
+							</form>
+						</main>
+					</div>
+				</div>
 			</div>
 			<%
 			}
