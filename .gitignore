@@ -6,7 +6,6 @@
 # Chặn folder chứa file đã biên dịch (không cần thiết trên Git)
 build/
 bin/
-target/
 
 # Chặn các file rác phát sinh
 *.log
