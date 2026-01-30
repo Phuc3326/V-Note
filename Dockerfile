@@ -1,5 +1,5 @@
-# Sử dụng image Tomcat 9 chính thức với JDK 11
-FROM tomcat:9.0-jdk11-openjdk
+# Sử dụng image Tomcat 9 chính thức với JDK 17
+FROM tomcat:9.0-jdk17-openjdk
 
 # Xóa các ứng dụng mặc định của Tomcat để tránh xung đột
 RUN rm -rf /usr/local/tomcat/webapps/*
