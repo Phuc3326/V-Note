@@ -11,18 +11,26 @@ import javax.mail.Transport;
 import javax.mail.internet.InternetAddress;
 import javax.mail.internet.MimeMessage;
 
-public class Email {
-	static final String from = System.getenv("EMAIL_USER"); 
-    static final String password = System.getenv("EMAIL_APP_PASS");
-	
+public class Email {	
     public static void sendEmail(String to, String content) {
+    	String from = System.getenv("EMAIL_USER");
+        String password = System.getenv("EMAIL_APP_PASS");
+
+        if (from == null || password == null) {
+            System.err.println("ERROR: Biến môi trường EMAIL_USER hoặc EMAIL_APP_PASS đang bị trống!");
+            return;
+        }
+        
         // Tạo một luồng mới để gửi email ngầm
         new Thread(() -> {
             Properties props = new Properties();
             props.put("mail.smtp.host", "smtp.gmail.com");
             props.put("mail.smtp.port", "465");
             props.put("mail.smtp.auth", "true");
-            props.put("mail.smtp.starttls.enable", "true");
+            
+            // Kích hoạt SSL cho cổng 465
+            props.put("mail.smtp.ssl.enable", "true"); 
+            props.put("mail.smtp.ssl.protocols", "TLSv1.2");
             
             // Thêm Timeout để tránh việc luồng này bị treo vĩnh viễn
             props.put("mail.smtp.connectiontimeout", "5000"); // 5 giây
