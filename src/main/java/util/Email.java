@@ -1,5 +1,6 @@
 package util;
 
+import java.io.UnsupportedEncodingException;
 import java.util.Properties;
 
 import javax.mail.Authenticator;
@@ -13,18 +14,22 @@ import javax.mail.internet.MimeMessage;
 
 public class Email {	
     public static void sendEmail(String to, String content) {
-    	String from = System.getenv("EMAIL_USER");
-        String password = System.getenv("EMAIL_APP_PASS");
+    	// Ép Java sử dụng IPv4 (Cloud thường lỗi khi dùng IPv6 để gửi mail)
+    	System.setProperty("java.net.preferIPv4Stack" , "true");
+    	
+    	String loginBrevo = System.getenv("BREVO_USER");
+        String passwordBrevo = System.getenv("BREVO_PASS");
+        String emailSender = System.getenv("EMAIL_USER");
 
-        if (from == null || password == null) {
-            System.err.println("ERROR: Biến môi trường EMAIL_USER hoặc EMAIL_APP_PASS đang bị trống!");
+        if (loginBrevo == null || passwordBrevo == null || emailSender == null) {
+            System.err.println("ERROR: Biến môi trường đang bị trống!");
             return;
         }
         
         // Tạo một luồng mới để gửi email ngầm
         new Thread(() -> {
         	Properties props = new Properties();
-        	props.put("mail.smtp.host", "smtp.gmail.com"); // Đăng ký dùng máy chủ gửi mail là gmail
+        	props.put("mail.smtp.host", "smtp-relay.brevo.com"); // Đăng ký dùng máy chủ gửi mail là brevo
         	props.put("mail.smtp.port", "587"); // Dùng cổng 587
         	props.put("mail.smtp.auth", "true");
         	props.put("mail.smtp.starttls.enable", "true"); // Bật TLS
@@ -35,13 +40,10 @@ public class Email {
         	props.put("mail.smtp.timeout", "10000");
         	props.put("mail.debug", "true");
 
-        	// Ép Java sử dụng IPv4 (Cloud thường lỗi khi dùng IPv6 để gửi mail)
-        	System.setProperty("java.net.preferIPv4Stack" , "true");
-
             Authenticator auth = new Authenticator() {
                 @Override
                 protected PasswordAuthentication getPasswordAuthentication() {
-                    return new PasswordAuthentication(from, password);
+                    return new PasswordAuthentication(loginBrevo, passwordBrevo); // Login Brevo
                 }
             };
 
@@ -51,7 +53,7 @@ public class Email {
 
             try {
                 msg.addHeader("Content-type", "text/HTML; charset=UTF-8");
-                msg.setFrom(new InternetAddress(from)); // Dùng InternetAddress sẽ chuẩn hơn
+                msg.setFrom(new InternetAddress(emailSender, "V-Note Support")); // Gửi từ email gốc
                 msg.setRecipients(Message.RecipientType.TO, InternetAddress.parse(to, false));
                 msg.setSubject("V-Note - Xác Thực Email", "UTF-8");
                 msg.setSentDate(new java.util.Date());
@@ -62,7 +64,10 @@ public class Email {
             } catch (MessagingException e) {
                 System.err.println("Error sending email: " + e.getMessage());
                 e.printStackTrace();
-            }
+            } catch (UnsupportedEncodingException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
         }).start(); // Kích hoạt luồng chạy ngầm
     }
 	
