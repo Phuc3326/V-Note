@@ -30,10 +30,14 @@ public class Email {
         new Thread(() -> {
         	Properties props = new Properties();
         	props.put("mail.smtp.host", "smtp-relay.brevo.com"); // Đăng ký dùng máy chủ gửi mail là brevo
-        	props.put("mail.smtp.port", "2525"); // Dùng cổng 587
+        	props.put("mail.smtp.port", "465"); // Dùng cổng 465
         	props.put("mail.smtp.auth", "true");
-        	props.put("mail.smtp.starttls.enable", "true"); // Bật TLS
-        	props.put("mail.smtp.starttls.required", "true");
+        	
+        	// Cấu hình SSL
+        	props.put("mail.smtp.ssl.enable", "true");
+        	props.put("mail.smtp.socketFactory.port", "465");
+        	props.put("mail.smtp.socketFactory.class", "javax.net.ssl.SSLSocketFactory");
+        	props.put("mail.smtp.socketFactory.fallback", "false");
 
         	// Set time out
         	props.put("mail.smtp.connectiontimeout", "15000");
