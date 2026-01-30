@@ -23,20 +23,20 @@ public class Email {
         
         // Tạo một luồng mới để gửi email ngầm
         new Thread(() -> {
-            Properties props = new Properties();
-            props.put("mail.smtp.host", "smtp.gmail.com");
-            props.put("mail.smtp.port", "465");
-            props.put("mail.smtp.auth", "true");
-            
-            // Kích hoạt SSL cho cổng 465
-            props.put("mail.smtp.ssl.enable", "true"); 
-            props.put("mail.smtp.ssl.protocols", "TLSv1.2");
-            
-            // Thêm Timeout để tránh việc luồng này bị treo vĩnh viễn
-            props.put("mail.smtp.connectiontimeout", "5000"); // 5 giây
-            props.put("mail.smtp.timeout", "5000"); // 5 giây
-            // Bật Debug để xem chi tiết lỗi trong Log của Railway
-            props.put("mail.debug", "true");
+        	Properties props = new Properties();
+        	props.put("mail.smtp.host", "smtp.gmail.com"); // Đăng ký dùng máy chủ gửi mail là gmail
+        	props.put("mail.smtp.port", "587"); // Dùng cổng 587
+        	props.put("mail.smtp.auth", "true");
+        	props.put("mail.smtp.starttls.enable", "true"); // Bật TLS
+        	props.put("mail.smtp.starttls.required", "true");
+
+        	// Set time out
+        	props.put("mail.smtp.connectiontimeout", "10000");
+        	props.put("mail.smtp.timeout", "10000");
+        	props.put("mail.debug", "true");
+
+        	// Ép Java sử dụng IPv4 (Cloud thường lỗi khi dùng IPv6 để gửi mail)
+        	System.setProperty("java.net.preferIPv4Stack" , "true");
 
             Authenticator auth = new Authenticator() {
                 @Override
