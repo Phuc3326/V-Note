@@ -30,14 +30,14 @@ public class Email {
         new Thread(() -> {
         	Properties props = new Properties();
         	props.put("mail.smtp.host", "smtp-relay.brevo.com"); // Đăng ký dùng máy chủ gửi mail là brevo
-        	props.put("mail.smtp.port", "587"); // Dùng cổng 587
+        	props.put("mail.smtp.port", "2525"); // Dùng cổng 587
         	props.put("mail.smtp.auth", "true");
         	props.put("mail.smtp.starttls.enable", "true"); // Bật TLS
         	props.put("mail.smtp.starttls.required", "true");
 
         	// Set time out
-        	props.put("mail.smtp.connectiontimeout", "10000");
-        	props.put("mail.smtp.timeout", "10000");
+        	props.put("mail.smtp.connectiontimeout", "15000");
+        	props.put("mail.smtp.timeout", "15000");
         	props.put("mail.debug", "true");
 
             Authenticator auth = new Authenticator() {
