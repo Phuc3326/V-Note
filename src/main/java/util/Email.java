@@ -1,6 +1,5 @@
 package util;
 
-import java.util.Date;
 import java.util.Properties;
 
 import javax.mail.Authenticator;
@@ -13,52 +12,51 @@ import javax.mail.internet.InternetAddress;
 import javax.mail.internet.MimeMessage;
 
 public class Email {
-	// Email: huynhhuuphuc3326@gmail.com
-	// Password: zgyiekckyppsclqw
 	static final String from = System.getenv("EMAIL_USER"); 
     static final String password = System.getenv("EMAIL_APP_PASS");
 	
-	public static void sendEmail (String to, String content) {
-		
-		Properties props = new Properties();
-		props.put("mail.smtp.host", "smtp.gmail.com");
-		props.put("mail.smtp.port", "587");
-		props.put("mail.smtp.auth", "true");
-		props.put("mail.smtp.starttls.enable", "true");
-		
-		Authenticator auth = new Authenticator() {
-			@Override
-			protected PasswordAuthentication getPasswordAuthentication() {
-				return new PasswordAuthentication(from, password);
-			}
-		};
-		
-		// Phien lam viec
-		Session session = Session.getInstance(props, auth);
-		
-		// Tao mot tin nhan
-		MimeMessage msg = new MimeMessage(session);
-		
-		try {
-			// Kieu noi dung
-			msg.addHeader("Content-type", "text/HTML; charset=UTF-8");
-			// Nguoi gui
-			msg.setFrom(from);
-			// Nguoi nhan
-			msg.setRecipients(Message.RecipientType.TO, InternetAddress.parse(to, false));
-			// Tieu de email
-			msg.setSubject("V-Note - Xác Thực Email");
-			// Ngay gui
-			msg.setSentDate(new Date());
-			// Noi dung
-			msg.setContent(content, "text/html; charset=UTF-8");
-			
-			// Gui email
-			Transport.send(msg);
-		} catch (MessagingException e) {
-			e.printStackTrace();
-		}
-	}
+    public static void sendEmail(String to, String content) {
+        // Tạo một luồng mới để gửi email ngầm
+        new Thread(() -> {
+            Properties props = new Properties();
+            props.put("mail.smtp.host", "smtp.gmail.com");
+            props.put("mail.smtp.port", "465");
+            props.put("mail.smtp.auth", "true");
+            props.put("mail.smtp.starttls.enable", "true");
+            
+            // Thêm Timeout để tránh việc luồng này bị treo vĩnh viễn
+            props.put("mail.smtp.connectiontimeout", "5000"); // 5 giây
+            props.put("mail.smtp.timeout", "5000"); // 5 giây
+            // Bật Debug để xem chi tiết lỗi trong Log của Railway
+            props.put("mail.debug", "true");
+
+            Authenticator auth = new Authenticator() {
+                @Override
+                protected PasswordAuthentication getPasswordAuthentication() {
+                    return new PasswordAuthentication(from, password);
+                }
+            };
+
+            // Tạo phiên làm việc với tài khoản và mật khẩu của auth và sử dụng host là gmail của props
+            Session session = Session.getInstance(props, auth);
+            MimeMessage msg = new MimeMessage(session);
+
+            try {
+                msg.addHeader("Content-type", "text/HTML; charset=UTF-8");
+                msg.setFrom(new InternetAddress(from)); // Dùng InternetAddress sẽ chuẩn hơn
+                msg.setRecipients(Message.RecipientType.TO, InternetAddress.parse(to, false));
+                msg.setSubject("V-Note - Xác Thực Email", "UTF-8");
+                msg.setSentDate(new java.util.Date());
+                msg.setContent(content, "text/html; charset=UTF-8");
+
+                Transport.send(msg);
+                System.out.println("Email sent successfully to: " + to);
+            } catch (MessagingException e) {
+                System.err.println("Error sending email: " + e.getMessage());
+                e.printStackTrace();
+            }
+        }).start(); // Kích hoạt luồng chạy ngầm
+    }
 	
 	public static String generateOTP() {
 	    int otp = (int)(Math.random() * 900000) + 100000; // Tạo số từ 100000 đến 999999
