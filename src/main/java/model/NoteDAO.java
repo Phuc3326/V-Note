@@ -11,7 +11,6 @@ public class NoteDAO implements DAOInterface<Note> {
 
 	@Override
 	public Note selectById(String idFind) {
-		UserDAO userDAO = new UserDAO();
 		Note note = null;
 		try {
 			// Tao ket noi
@@ -29,7 +28,11 @@ public class NoteDAO implements DAOInterface<Note> {
 			if (rs.next()) {
 				note = new Note();
 				note.setId(rs.getString("id"));
-				note.setUser(userDAO.selectById(rs.getString("userid")));
+				
+				User dummyUser = new User();
+			    dummyUser.setId(rs.getString("userid"));
+			    note.setUser(dummyUser);
+				
 				note.setTitle(rs.getString("title"));
 				note.setContent(rs.getString("content"));
 				note.setCreateDate(rs.getDate("createdate"));
@@ -47,7 +50,6 @@ public class NoteDAO implements DAOInterface<Note> {
 
 	@Override
 	public List<Note> selectAll() {
-		UserDAO userDAO = new UserDAO();
 		List<Note> result = new ArrayList<>();
 		
 		try {
@@ -65,7 +67,11 @@ public class NoteDAO implements DAOInterface<Note> {
 			while (rs.next()) {
 				Note note = new Note();
 				note.setId(rs.getString("id"));
-				note.setUser(userDAO.selectById(rs.getString("userid")));
+				
+				User dummyUser = new User();
+			    dummyUser.setId(rs.getString("userid"));
+			    note.setUser(dummyUser);
+				
 				note.setTitle(rs.getString("title"));
 				note.setContent(rs.getString("content"));
 				note.setCreateDate(rs.getDate("createdate"));
@@ -193,7 +199,6 @@ public class NoteDAO implements DAOInterface<Note> {
 	
 	public List<Note> selectAllByUserId(String userId, boolean isArchived) {
 	    List<Note> result = new ArrayList<>();
-	    UserDAO userDAO = new UserDAO();
 	    try {
 	        Connection c = JDBCUtil.getConnection();
 	        // Lọc theo cả UserId và trạng thái Thùng rác
@@ -206,7 +211,11 @@ public class NoteDAO implements DAOInterface<Note> {
 	        while (rs.next()) {
 	            Note note = new Note();
 	            note.setId(rs.getString("id"));
-	            note.setUser(userDAO.selectById(rs.getString("userid")));
+	            
+	            User dummyUser = new User();
+	            dummyUser.setId(rs.getString("userid"));
+	            note.setUser(dummyUser);
+	            
 	            note.setTitle(rs.getString("title"));
 	            note.setContent(rs.getString("content"));
 	            note.setCreateDate(rs.getDate("createdate"));
@@ -223,7 +232,6 @@ public class NoteDAO implements DAOInterface<Note> {
 	
 	public List<Note> searchByTitle(String userId, String keyword) {
 	    List<Note> result = new ArrayList<>();
-	    UserDAO userDAO = new UserDAO();
 	    try {
 	        Connection c = JDBCUtil.getConnection();
 	        // Sử dụng ILIKE (trong Postgres) hoặc LIKE để tìm kiếm gần đúng
@@ -236,7 +244,11 @@ public class NoteDAO implements DAOInterface<Note> {
 	        while (rs.next()) {
 	            Note note = new Note();
 	            note.setId(rs.getString("id"));
-	            note.setUser(userDAO.selectById(rs.getString("userid")));
+	            
+	            User dummyUser = new User();
+	            dummyUser.setId(rs.getString("userid"));
+	            note.setUser(dummyUser);
+	            
 	            note.setTitle(rs.getString("title"));
 	            note.setContent(rs.getString("content"));
 	            note.setCreateDate(rs.getDate("createdate"));
