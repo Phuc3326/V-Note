@@ -270,13 +270,12 @@ public class UserController extends HttpServlet {
 			request.getRequestDispatcher("/WEB-INF/views/change-information.jsp").forward(request, response);
 		} else {
 			String fullName = request.getParameter("fullName");
-			String email = request.getParameter("email");
 			Date dateOfBirth = (request.getParameter("dateOfBirth").equals(""))?null:Date.valueOf(request.getParameter("dateOfBirth"));
 			String phone = request.getParameter("phone");
 			String gender = request.getParameter("gender");
 			
 			UserDAO userDAO = new UserDAO();
-			user = new User(user.getId(), user.getUserName(), user.getPassword(), email, dateOfBirth, gender, fullName, phone);
+			user = new User(user.getId(), user.getUserName(), user.getPassword(), user.getEmail(), dateOfBirth, gender, fullName, phone);
 			userDAO.update(user);
 			session.setAttribute("user", user);
 			System.out.println("Save new information successfully!");
