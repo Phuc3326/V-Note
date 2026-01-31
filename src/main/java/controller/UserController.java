@@ -120,7 +120,7 @@ public class UserController extends HttpServlet {
 	                 "  <p style=\"font-size: 12px; color: #aaa;\">Đây là email tự động, vui lòng không phản hồi.</p>" +
 	                 "</div>";
 	        
-	        Email.sendEmail(pendingUser.getEmail(), content);
+	        Email.sendEmailViaBrevoAPI(pendingUser.getEmail(), content);
 	        session.setAttribute("msg", "Mã xác thực mới đã được gửi!");
 	    }
 	    response.sendRedirect(request.getContextPath() + "/user-controller?controllerType=verify");
@@ -231,7 +231,7 @@ public class UserController extends HttpServlet {
 		                 "  <p style=\"font-size: 12px; color: #aaa;\">Đây là email tự động, vui lòng không phản hồi.</p>" +
 		                 "</div>";
 				
-				Email.sendEmail(user.getEmail(), content);
+				Email.sendEmailViaBrevoAPI(user.getEmail(), content);
 				response.sendRedirect(request.getContextPath() + "/user-controller?controllerType=verify");
 			}
 		}
