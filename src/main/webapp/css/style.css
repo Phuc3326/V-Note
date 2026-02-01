@@ -1,0 +1,90 @@
+@charset "UTF-8";
+
+/* 1. Nền xám đậm dịu mắt, không dùng đen tuyền */
+body {
+    background-color: #1e1e1e !important; 
+    color: #e0e0e0 !important; /* Chữ trắng mờ (off-white) để không bị chói */
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+/* 2. Tiêu đề trang - Giảm độ chói bằng màu xám nhạt */
+h1 {
+    text-align: center;
+    margin-top: 20px;
+    margin-bottom: 30px;
+    font-weight: 600;
+    color: #cfcfcf; 
+}
+
+/* 3. Chỉnh lại ô nhập liệu (Input) cho đồng bộ nền tối */
+.form-control {
+    background-color: #2d2d2d !important; /* Nền ô nhập màu xám nhẹ */
+    border: 1px solid #444 !important;    /* Viền mờ */
+    color: #ffffff !important;           /* Chữ gõ vào màu trắng */
+}
+
+.form-control:focus {
+    background-color: #333 !important;
+    border-color: #ffc107 !important;    /* Viền vàng khi nhấn vào cho nổi bật */
+    box-shadow: 0 0 0 0.25rem rgba(255, 193, 7, 0.25) !important;
+    color: #fff !important;
+}
+
+/* 4. Định dạng liên kết và Header/Footer */
+a {
+    text-decoration: none !important;
+    color: #aaa; /* Link mặc định màu xám mờ */
+    transition: 0.3s;
+}
+
+a:hover {
+    color: #ffc107 !important; /* Hover lên mới hiện màu vàng sáng */
+}
+
+/* 5. Các nút bấm */
+.btn-primary {
+    background-color: #0d6efd;
+    border: none;
+}
+
+.red {
+    color: #ff6b6b; /* Màu đỏ dịu hơn */
+}
+
+/* Tùy chỉnh thanh cuộn cho đồng bộ */
+::-webkit-scrollbar {
+    width: 8px;
+}
+::-webkit-scrollbar-track {
+    background: #1e1e1e;
+}
+::-webkit-scrollbar-thumb {
+    background: #3e3e3e;
+    border-radius: 10px;
+}
+
+.form-control::placeholder {
+    color: #aaa !important;
+    opacity: 1;
+}
+
+/* 1. Tùy chỉnh nút Submit sang tông Vàng chuyên nghiệp */
+.btn-primary {
+    background-color: #ffc107 !important; /* Màu vàng Gold */
+    border: none !important;
+    color: #121212 !important;           /* Chữ đen đậm để nổi bật trên nền vàng */
+    font-weight: 600 !important;
+    transition: all 0.3s ease;
+}
+
+/* Hiệu ứng khi di chuột vào nút */
+.btn-primary:hover {
+    background-color: #e0a800 !important; /* Vàng đậm hơn một chút */
+    box-shadow: 0 0 10px rgba(255, 193, 7, 0.4);
+    transform: translateY(-1px);          /* Nhấc nút lên nhẹ một chút */
+}
+
+/* Hiệu ứng khi click */
+.btn-primary:active {
+    transform: translateY(0);
+}
