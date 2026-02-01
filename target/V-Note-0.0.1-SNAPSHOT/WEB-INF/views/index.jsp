@@ -52,15 +52,15 @@
                             <c:when test="${not empty keyword}">
                                 <i class="bi bi-search text-secondary" style="font-size: 3.5rem;"></i>
                                 <p class="text-secondary mt-3 fs-5">
-                                    No notes found for "<strong>${keyword}</strong>".
+                                    Không tìm thấy ghi chú có chứa "<strong>${keyword}</strong>".
                                 </p>
                                 <a href="${pageContext.request.contextPath}/note-controller?controllerType=index"
-                                   class="btn btn-outline-warning mt-2">Back to all notes</a>
+                                   class="btn btn-outline-warning mt-2">Quay lại tất cả ghi chú</a>
                             </c:when>
 
                             <c:otherwise>
                                 <i class="bi bi-journal-plus text-secondary" style="font-size: 4rem;"></i>
-                                <p class="text-secondary mt-3 fs-5">Your notebook is empty. Tap (+) to start!</p>
+                                <p class="text-secondary mt-3 fs-5">Notebook của bạn trống. Nhấn (+) để tạo ghi chú mới!</p>
                             </c:otherwise>
                         </c:choose>
                     </div>
@@ -100,7 +100,7 @@
                 <div class="modal-header border-secondary">
                     <input type="text" id="modalTitle"
                            class="form-control bg-transparent text-warning border-0 fs-3 fw-bold"
-                           placeholder="Title...">
+                           placeholder="Tiêu đề...">
 
                     <button type="button" class="btn btn-link text-warning p-2" onclick="handleSaveAndClose()">
                         <i class="bi bi-check-circle-fill fs-2"></i>
@@ -108,13 +108,13 @@
                 </div>
                 <div class="modal-body p-4">
                     <textarea id="modalContent" class="form-control bg-transparent text-light border-0" 
-                              rows="12" placeholder="Start writing..."></textarea>
+                              rows="12" placeholder="Nội dung..."></textarea>
                 </div>
                 <div class="modal-footer border-secondary justify-content-start py-2">
                     <div class="small text-white-50 px-2">
-                        <i class="bi bi-calendar3 me-1"></i> Created: <span id="modalCreateDate"></span> 
+                        <i class="bi bi-calendar3 me-1"></i> Ngày tạo: <span id="modalCreateDate"></span> 
                         <span class="mx-2">|</span>
-                        <i class="bi bi-pencil-square me-1"></i> Edited: <span id="modalEditDate"></span>
+                        <i class="bi bi-pencil-square me-1"></i> Ngày chỉnh sửa gần nhất: <span id="modalEditDate"></span>
                     </div>
                 </div>
             </div>
@@ -140,7 +140,7 @@
         const content = document.getElementById('modalContent').value.trim();
 
         if (title === "" && content !== "") {
-            alert("Please enter a title!");
+            alert("Vui lòng nhập tiêu đề!");
             return;
         }
         
@@ -167,14 +167,14 @@
             if(res.ok) {
                 window.location.reload();
             } else {
-                alert("Error saving note!");
+                alert("Lỗi lưu ghi chú!");
             }
         })
-        .catch(err => console.error("Network error:", err));
+        .catch(err => console.error("Lỗi mạng:", err));
     }
 
     function deleteNote(id) {
-        if (confirm("Move this note to trash?")) {
+        if (confirm("Đưa ghi chú này vào thùng rác?")) {
             const data = new URLSearchParams();
             data.append('controllerType', 'move-to-trash');
             data.append('id', id);
@@ -184,7 +184,7 @@
                 body: data
             }).then(res => {
                 if (res.ok) window.location.reload();
-                else alert("Could not delete note!");
+                else alert("Không thể xóa ghi chú!");
             });
         }
     }

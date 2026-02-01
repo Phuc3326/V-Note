@@ -65,21 +65,21 @@
                 <div class="col-11 col-sm-8 col-md-6 col-lg-4">
                     <div class="login-card">
                         <div class="text-center mb-4">
-                            <h1 class="h3 fw-bold text-warning uppercase">WELCOME BACK</h1>
-                            <p class="text-white-50 small">Please enter your details to login</p>
+                            <h1 class="h3 fw-bold text-warning uppercase">ĐĂNG NHẬP</h1>
+                            <p class="text-white-50 small">Chào mừng trở lại! Vui lòng nhập thông tin tài khoản để đăng nhập</p>
                         </div>
 
                         <form action="${pageContext.request.contextPath}/user-controller?controllerType=login" method="POST">
                             <div class="mb-3">
-                                <label for="userName" class="form-label fw-semibold text-light">User Name</label>
+                                <label for="userName" class="form-label fw-semibold text-light">Tên Đăng Nhập</label>
                                 <input type="text" class="form-control form-control-lg" id="userName" name="userName"
-                                    required value="<%=userName%>" placeholder="Enter username">
+                                    required value="<%=userName%>">
                             </div>
 
                             <div class="mb-3">
-                                <label for="password" class="form-label fw-semibold text-light">Password</label>
+                                <label for="password" class="form-label fw-semibold text-light">Mật Khẩu</label>
                                 <input type="password" class="form-control form-control-lg" id="password"
-                                    name="password" required placeholder="••••••••">
+                                    name="password" required>
                             </div>
 
                             <% if(!msg.isEmpty()) { %>
@@ -90,14 +90,14 @@
 
                             <div class="d-grid gap-2 mt-4">
                                 <button class="btn btn-warning btn-lg fw-bold shadow-sm" type="submit">
-                                    SIGN IN
+                                    ĐĂNG NHẬP
                                 </button>
                             </div>
 
                             <div class="text-center mt-4">
-                                <span class="text-white-50 small">Don't have an account?</span> <br>
+                                <span class="text-white-50 small">Chưa có tài khoản?</span> <br>
                                 <a href="${pageContext.request.contextPath}/user-controller?controllerType=sign-up"
-                                    class="text-decoration-none fw-bold text-warning">Sign up for free</a>
+                                    class="text-decoration-none fw-bold text-warning">Đăng ký ở đây</a>
                             </div>
                         </form>
                     </div>

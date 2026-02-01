@@ -67,60 +67,61 @@
                 <div class="col-11 col-md-9 col-lg-7 col-xl-6">
                     <div class="register-card">
                         <div class="text-center mb-4">
-                            <h1 class="h3 fw-bold text-warning uppercase">CREATE ACCOUNT</h1>
-                            <p class="text-white-50 small">Join V-Note to manage your notes anywhere</p>
+                            <h1 class="h3 fw-bold text-warning uppercase">TẠO TÀI KHOẢN</h1>
+                            <p class="text-white-50 small">Sử dụng V-Note để quản lý ghi chú của bạn ở bất cứ đâu</p>
                         </div>
 
                         <form action="${pageContext.request.contextPath}/user-controller?controllerType=sign-up" method="post">
                             <div class="row">
                                 <div class="col-md-6 mb-3">
-                                    <label for="fullName" class="form-label">Full name<span class="red">*</span></label>
-                                    <input type="text" class="form-control" id="fullName" name="fullName" required value="<%=fullName%>">
+                                    <label for="fullName" class="form-label">Họ Và Tên<span class="red">*</span></label>
+                                    <input placeholder="Nhập đầy đủ họ và tên" type="text" class="form-control" id="fullName" name="fullName" required value="<%=fullName%>">
                                 </div>
                                 <div class="col-md-6 mb-3">
-                                    <label for="userName" class="form-label">User Name<span class="red">*</span></label>
-                                    <input type="text" class="form-control" id="userName" name="userName" required value="<%=userName%>">
+                                    <label for="userName" class="form-label">Tên Đăng Nhập<span class="red">*</span>
+                                    <span id="error-username" class="red small"></span></label>
+                                    <input placeholder="Không chứa ký tự đặc biệt" type="text" class="form-control" id="userName" name="userName" required value="<%=userName%>">
                                 </div>
                             </div>
 
                             <div class="row">
                                 <div class="col-md-6 mb-3">
-                                    <label for="password" class="form-label">Password<span class="red">*</span></label>
-                                    <input type="password" class="form-control" id="password" name="password" required minlength="8">
+                                    <label for="password" class="form-label">Mật Khẩu<span class="red">*</span></label>
+                                    <input placeholder="Mật khẩu ít nhất 8 ký tự" type="password" class="form-control" id="password" name="password" required minlength="8">
                                 </div>
                                 <div class="col-md-6 mb-3">
-                                    <label for="passwordReEnter" class="form-label">Re-Enter Password<span class="red">*</span></label>
-                                    <input type="password" class="form-control" id="passwordReEnter" name="passwordReEnter" required>
+                                    <label for="passwordReEnter" class="form-label">Nhập lại mật khẩu<span class="red">*</span></label>
+                                    <input placeholder="Nhập lại mật khẩu đã đặt" type="password" class="form-control" id="passwordReEnter" name="passwordReEnter" required>
                                     <div id="error-password" class="red small mt-1"></div>
                                 </div>
                             </div>
 
                             <div class="mb-3">
-                                <label for="email" class="form-label">Email address<span class="red">*</span></label>
-                                <input type="email" class="form-control" id="email" name="email" required value="<%=email%>">
+                                <label for="email" class="form-label">Địa Chỉ Email<span class="red">*</span></label>
+                                <input placeholder="VD: abc@gmail.com" type="email" class="form-control" id="email" name="email" required value="<%=email%>">
                             </div>
 
                             <div class="row">
                                 <div class="col-md-6 mb-3">
-                                    <label for="phone" class="form-label">Phone <span id="error-phone" class="red small"></span></label>
+                                    <label for="phone" class="form-label">Số điện thoại <span id="error-phone" class="red small"></span></label>
                                     <input type="text" class="form-control" id="phone" name="phone" value="<%=phone%>" placeholder="0xxxxxxxxx">
                                 </div>
                                 <div class="col-md-6 mb-3">
-                                    <label for="dateOfBirth" class="form-label">Date of birth</label>
+                                    <label for="dateOfBirth" class="form-label">Ngày Sinh</label>
                                     <input type="date" class="form-control" id="dateOfBirth" name="dateOfBirth" value="<%=dateOfBirth%>">
                                 </div>
                             </div>
 
                             <div class="mb-4">
-                                <label class="form-label d-block text-light">Gender</label>
+                                <label class="form-label d-block text-light">Giới tính</label>
                                 <div class="d-flex gap-4 mt-2">
                                     <div class="form-check">
                                         <input class="form-check-input" type="radio" name="gender" id="genderMale" value="male" <%=gender.equals("male") ? "checked" : ""%>>
-                                        <label class="form-check-label text-light" for="genderMale">Male</label>
+                                        <label class="form-check-label text-light" for="genderMale">Nam</label>
                                     </div>
                                     <div class="form-check">
                                         <input class="form-check-input" type="radio" name="gender" id="genderFemale" value="female" <%=gender.equals("female") ? "checked" : ""%>>
-                                        <label class="form-check-label text-light" for="genderFemale">Female</label>
+                                        <label class="form-check-label text-light" for="genderFemale">Nữ</label>
                                     </div>
                                 </div>
                             </div>
@@ -132,9 +133,9 @@
                             <% } %>
 
                             <div class="d-grid gap-2">
-                                <button type="submit" class="btn btn-warning btn-lg fw-bold shadow-sm">SIGN-UP</button>
+                                <button type="submit" class="btn btn-warning btn-lg fw-bold shadow-sm">Đăng Ký</button>
                                 <p class="text-center mt-3 small text-white-50">
-                                    Already have an account? <a href="${pageContext.request.contextPath}/user-controller?controllerType=login" class="text-decoration-none fw-bold text-warning">Login here</a>
+                                    Đã có tài khoản? <a href="${pageContext.request.contextPath}/user-controller?controllerType=login" class="text-decoration-none fw-bold text-warning">Đăng nhập ở đây</a>
                                 </p>
                             </div>
                         </form>
@@ -150,6 +151,21 @@
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
     <script>
+	 	// KIỂM TRA USERNAME (CHỈ CHỮ VÀ SỐ, KHÔNG KHOẢNG CÁCH, KHÔNG KÝ TỰ ĐẶT BIỆT)
+	    const regexUsername = /^[a-zA-Z0-9]+$/;
+	    const userNameInput = document.getElementById('userName');
+	    const userNameError = document.getElementById('error-username');
+	
+	    userNameInput.addEventListener('blur', function() {
+	        if (userNameInput.value !== "" && !regexUsername.test(userNameInput.value)) {
+	            userNameError.innerText = " (Tên đăng nhập không bao gồm khoản trắng và ký tự đặc biệt)";
+	            userNameInput.classList.add('is-invalid');
+	        } else {
+	            userNameError.innerText = "";
+	            userNameInput.classList.remove('is-invalid');
+	        }
+	    });
+    
         const dob = document.getElementById('dateOfBirth');
         const today = new Date().toISOString().split('T')[0];
         if(dob) dob.setAttribute('max', today);
@@ -161,7 +177,7 @@
         if(pwdReEnter) {
             pwdReEnter.addEventListener('blur', function() {
                 if (pwdReEnter.value !== pwd.value && pwdReEnter.value !== "") {
-                    pwd_error.innerText = "Passwords do not match!";
+                    pwd_error.innerText = "Mật khẩu nhập lại không khớp!";
                     pwdReEnter.classList.add('is-invalid');
                 } else {
                     pwd_error.innerText = "";
@@ -177,7 +193,7 @@
         if(phone) {
             phone.addEventListener('blur', function() {
                 if (phone.value !== "" && !regexPhone.test(phone.value)) {
-                    phone_error.innerText = " (10 digits starting with 0)";
+                    phone_error.innerText = " (10 số bắt đầu với 0)";
                     phone.classList.add('is-invalid');
                 } else {
                     phone_error.innerText = "";
@@ -190,6 +206,10 @@
         if(form) {
             form.addEventListener('submit', function(event) {
                 let hasError = false;
+                if (userNameInput.value !== "" && !regexUsername.test(userNameInput.value)) {
+                    hasError = true;
+                    userNameInput.focus();
+                }
                 if (pwdReEnter.value !== pwd.value) hasError = true;
                 if (phone.value !== "" && !regexPhone.test(phone.value)) hasError = true;
                 if (hasError) event.preventDefault();

@@ -64,7 +64,7 @@
 
                         <% if (!isSuccess) { %>
                         <p class="text-center small mb-4">
-                            <span class="text-white-50">Mã có hiệu lực trong</span> 
+                            <span class="text-white-50">Mã đã được gửi qua Email! Có hiệu lực trong</span> 
                             <span id="timer" class="badge bg-danger fs-6 mx-1"><%=remainingSeconds%></span> 
                             <span class="text-white-50">giây.</span>
                         </p>

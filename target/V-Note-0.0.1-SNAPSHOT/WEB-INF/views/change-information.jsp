@@ -47,10 +47,10 @@
             if (user == null) {
             %>
             <div class="text-center">
-                <h1 class="display-5 fw-bold text-light">CHANGE INFORMATION</h1>
+                <h1 class="display-5 fw-bold text-light">THAY ĐỔI THÔNG TIN</h1>
                 <div class="alert alert-warning mt-4 d-inline-block shadow-sm">
                     <i class="bi bi-exclamation-triangle-fill me-2"></i>
-                    You haven't logged in yet! Please <a href="${pageContext.request.contextPath}/user-controller?controllerType=login" class="alert-link">log in</a> first.
+                    Bạn chưa đăng nhập! Vui lòng <a href="${pageContext.request.contextPath}/user-controller?controllerType=login" class="alert-link">đăng nhập</a> trước.
                 </div>
             </div>
             <%
@@ -67,34 +67,34 @@
             <div class="row justify-content-center">
                 <div class="col-11 col-md-8 col-lg-6">
                     <div class="form-card">
-                        <h1 class="h3 mb-4 fw-bold text-center text-warning uppercase">UPDATE PROFILE</h1>
+                        <h1 class="h3 mb-4 fw-bold text-center text-warning uppercase">THAY ĐỔI THÔNG TIN</h1>
                         
                         <form action="${pageContext.request.contextPath}/user-controller?controllerType=change-information" method="post">
                             <div class="mb-3">
-                                <label for="fullName" class="form-label fw-semibold text-light">Full name<span class="red">*</span></label>
+                                <label for="fullName" class="form-label fw-semibold text-light">Họ và Tên<span class="red">*</span></label>
                                 <input type="text" class="form-control form-control-lg" id="fullName" name="fullName" required value="<%=fullName%>">
                             </div>
                             
                             <div class="mb-3">
-                                <label for="phone" class="form-label fw-semibold text-light">Phone <span id="error-phone" class="red small"></span></label>
+                                <label for="phone" class="form-label fw-semibold text-light">Số điện thoại <span id="error-phone" class="red small"></span></label>
                                 <input type="text" class="form-control form-control-lg" id="phone" name="phone" value="<%=phone%>" placeholder="0xxxxxxxxx">
                             </div>
                             
                             <div class="mb-3">
-                                <label for="dateOfBirth" class="form-label fw-semibold text-light">Date of birth</label>
+                                <label for="dateOfBirth" class="form-label fw-semibold text-light">Ngày sinh</label>
                                 <input type="date" class="form-control form-control-lg" id="dateOfBirth" name="dateOfBirth" value="<%=dateOfBirth%>">
                             </div>
 
                             <div class="mb-4">
-                                <label class="form-label fw-semibold d-block text-light">Gender</label>
+                                <label class="form-label fw-semibold d-block text-light">Giới tính</label>
                                 <div class="d-flex gap-4">
                                     <div class="form-check">
                                         <input class="form-check-input" type="radio" name="gender" id="genderMale" value="male" <%="male".equals(gender) ? "checked" : ""%>>
-                                        <label class="form-check-label text-light" for="genderMale">Male</label>
+                                        <label class="form-check-label text-light" for="genderMale">Nam</label>
                                     </div>
                                     <div class="form-check">
                                         <input class="form-check-input" type="radio" name="gender" id="genderFemale" value="female" <%="female".equals(gender) ? "checked" : ""%>>
-                                        <label class="form-check-label text-light" for="genderFemale">Female</label>
+                                        <label class="form-check-label text-light" for="genderFemale">Nữ</label>
                                     </div>
                                 </div>
                             </div>
@@ -107,7 +107,7 @@
 
                             <div class="d-grid gap-2">
                                 <button type="submit" class="btn btn-warning btn-lg fw-bold shadow-sm">
-                                    <i class="bi bi-save me-2"></i>Save Changes
+                                    <i class="bi bi-save me-2"></i>Lưu thay đổi
                                 </button>
                                 <a href="${pageContext.request.contextPath}/" class="btn btn-link text-secondary text-decoration-none text-center small">Cancel</a>
                             </div>
@@ -125,7 +125,6 @@
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
     <script>
-        // Các đoạn Script giữ nguyên logic của bạn...
         const dob = document.getElementById('dateOfBirth');
         const today = new Date().toISOString().split('T')[0];
         if(dob) dob.setAttribute('max', today);
@@ -136,7 +135,7 @@
         if(phone) {
             phone.addEventListener('blur', function() {
                 if (phone.value !== "" && !regexPhone.test(phone.value)) {
-                    phone_error.innerText = " (Must be 10 digits)";
+                    phone_error.innerText = " (Phải bao gồm 10 chữ số)";
                     phone.classList.add('is-invalid');
                 } else {
                     phone_error.innerText = "";

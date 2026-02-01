@@ -22,12 +22,12 @@
             <ul class="navbar-nav me-auto mb-2 mb-lg-0">
                 <li class="nav-item">
                     <a href="${pageContext.request.contextPath}/note-controller?controllerType=index" 
-                       class="nav-link <%= isIndex ? "active text-secondary" : "text-white" %>">Home</a>
+                       class="nav-link <%= isIndex ? "active text-secondary" : "text-white" %>">Trang chủ</a>
                 </li>
                 <% if (isIndex || isTrash) { %>
                 <li class="nav-item">
                     <a href="${pageContext.request.contextPath}/note-controller?controllerType=trash" 
-                       class="nav-link <%= isTrash ? "active text-secondary" : "text-white" %>">Trash</a>
+                       class="nav-link <%= isTrash ? "active text-secondary" : "text-white" %>">Thùng rác</a>
                 </li>
                 <% } %>
             </ul>
@@ -38,8 +38,8 @@
                     <input type="hidden" name="controllerType" value="search">
                     <input type="search" name="keyword" value="${keyword}"
                         class="form-control form-control-dark text-bg-dark border-secondary me-2"
-                        placeholder="Search..." aria-label="Search">
-                    <button type="submit" class="btn btn-outline-light text-nowrap">Find</button>
+                        placeholder="Tìm kiếm bởi tiêu đề..." aria-label="Search">
+                    <button type="submit" class="btn btn-outline-light text-nowrap">Tìm</button>
                 </form>
                 <% } %>
                 
@@ -51,15 +51,15 @@
                 <div class="dropdown">
                     <button class="btn btn-outline-light dropdown-toggle w-100" type="button"
                         id="userMenu" data-bs-toggle="dropdown" aria-expanded="false">
-                        <i class="bi bi-person-circle me-1"></i> Account
+                        <i class="bi bi-person-circle me-1"></i> Tài khoản
                     </button>
                     <ul class="dropdown-menu dropdown-menu-end shadow" aria-labelledby="userMenu">
                         <li><h6 class="dropdown-header">Hi, <%=user.getFullName()%></h6></li>
                         <li><hr class="dropdown-divider"></li>
-                        <li><a class="dropdown-item" href="${pageContext.request.contextPath}/user-controller?controllerType=change-information"><i class="bi bi-person-gear me-2"></i>Edit Profile</a></li>
-                        <li><a class="dropdown-item" href="${pageContext.request.contextPath}/user-controller?controllerType=change-password"><i class="bi bi-shield-lock me-2"></i>Change Password</a></li>
+                        <li><a class="dropdown-item" href="${pageContext.request.contextPath}/user-controller?controllerType=change-information"><i class="bi bi-person-gear me-2"></i>Thay đổi thông tin người dùng</a></li>
+                        <li><a class="dropdown-item" href="${pageContext.request.contextPath}/user-controller?controllerType=change-password"><i class="bi bi-shield-lock me-2"></i>Thay đổi mật khẩu</a></li>
                         <li><hr class="dropdown-divider"></li>
-                        <li><a class="dropdown-item text-danger" href="${pageContext.request.contextPath}/user-controller?controllerType=logout"><i class="bi bi-box-arrow-right me-2"></i>Logout</a></li>
+                        <li><a class="dropdown-item text-danger" href="${pageContext.request.contextPath}/user-controller?controllerType=logout"><i class="bi bi-box-arrow-right me-2"></i>Đăng xuất</a></li>
                     </ul>
                 </div>
                 <% } %>

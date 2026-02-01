@@ -37,16 +37,16 @@
         <div class="container mt-4 mb-5">
             <div class="d-flex align-items-center mb-4">
                 <i class="bi bi-trash3 fs-2 text-secondary me-3"></i>
-                <h1 class="h3 mb-0 fw-bold">Recycle Bin</h1>
+                <h1 class="h3 mb-0 fw-bold">Thùng Rác</h1>
             </div>
 
             <div class="row g-3" id="note-container">
                 <c:if test="${empty userNotes}">
                     <div class="col-12 text-center mt-5 py-5">
                         <i class="bi bi-recycle text-secondary opacity-25" style="font-size: 5rem;"></i>
-                        <p class="text-secondary mt-3 fs-5">Your trash is empty!</p>
+                        <p class="text-secondary mt-3 fs-5">Thùng rác trống!</p>
                         <a href="${pageContext.request.contextPath}/note-controller?controllerType=index" 
-                           class="btn btn-outline-secondary mt-2">Back to Home</a>
+                           class="btn btn-outline-secondary mt-2">Quay về trang chủ</a>
                     </div>
                 </c:if>
 
@@ -95,7 +95,7 @@
     }
 
     function hardDeleteNote(id) {
-        if (confirm("WARNING: This note will be PERMANENTLY deleted. This action cannot be undone!")) {
+        if (confirm("Bạn có chắc muốn xóa vĩnh viễn ghi chú này? Ghi chú không thể khôi phục sau khi xóa!")) {
             const data = new URLSearchParams();
             data.append('controllerType', 'hard-delete');
             data.append('id', id);

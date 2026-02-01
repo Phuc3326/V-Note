@@ -178,28 +178,28 @@ public class UserController extends HttpServlet {
 		
 		String msg = "";
 		if (!CheckValidData.isValidFullName(fullName)) {
-			msg += "Full name can not be empty!\n";
+			msg += "Họ và tên không thể để trống!\n";
 		}
 		if (!CheckValidData.isValidUserName(userName)) {
-			msg += "User name can not be empty!\n";
+			msg += "Tên tài khoản không thể để trống!\n";
 		}
 		if (!CheckValidData.isValidPassword(password)) {
-			msg += "Password must contain at least 8 character!\n";
+			msg += "Mật khẩu phải bao gồm ít nhất 8 ký tự!\n";
 		}
 		else if (!CheckValidData.isValidReEnterPassword(password, passwordReEnter)) {
-			msg += "Re-enter password must match the password!\n";
+			msg += "Mật khẩu nhập lại phải khớp!\n";
 		}
 		if (!CheckValidData.isValidPhone(phone)) {
-			msg += "Number phone's format invalid!\n";
+			msg += "Định dạng số điện thoại không hợp lệ!\n";
 		}
 		if (!CheckValidData.isValidEmail(email)) {
-			msg += "email's format invalid!\n";
+			msg += "Định dạng Email không hợp lệ!\n";
 		}
 		if (!CheckValidData.isValidDateOfBirth(dateOfBirth)) {
-			msg += "Date of birth's format invalid!\n";
+			msg += "Định dạng ngày sinh không hợp lệ!\n";
 		}
 		if (!CheckValidData.isValidGender(gender)) {
-			msg += "Gender's format invalid!\n";
+			msg += "Định dạng giới tính không hợp lệ!\n";
 		}
 		
 		if (!msg.isEmpty()) {
@@ -209,7 +209,7 @@ public class UserController extends HttpServlet {
 			Date date_of_birth = (dateOfBirth.isEmpty()) ? null : Date.valueOf(dateOfBirth);
 			UserDAO userDAO = new UserDAO();
 			if (userDAO.selectByUserName(userName) != null) {
-				msg = "User name already exists!\n";
+				msg = "Tên đăng nhập đã tồn tại!\n";
 				request.setAttribute("message", msg);
 				request.getRequestDispatcher("/WEB-INF/views/sign-up.jsp").forward(request, response);
 			} else {
@@ -253,7 +253,7 @@ public class UserController extends HttpServlet {
 				session.setAttribute("user", user);
 				response.sendRedirect(request.getContextPath() + "/");
 			} else {
-				request.setAttribute("message", "Account does not exist!");
+				request.setAttribute("message", "Tài khoản không tồn tại!");
 				request.getRequestDispatcher("/WEB-INF/views/login.jsp").forward(request, response);
 			}
 		} else {
@@ -279,7 +279,7 @@ public class UserController extends HttpServlet {
 			userDAO.update(user);
 			session.setAttribute("user", user);
 			System.out.println("Save new information successfully!");
-			session.setAttribute("msg", "Save successfully!");
+			session.setAttribute("msg", "Lưu thành công!");
 			response.sendRedirect(request.getContextPath() + "/user-controller?controllerType=change-information");
 		}
 	}
@@ -302,10 +302,10 @@ public class UserController extends HttpServlet {
 				user.setPassword(encryptedNewPassword);
 				UserDAO userDAO = new UserDAO();
 				userDAO.update(user);
-				System.out.println("Save new password successfully!");
-				msg = "Save successfully!";
+				System.out.println("Lưu mật khẩu mới thành công!");
+				msg = "Lưu thành công!";
 			} else {
-				msg ="Wrong current password!";
+				msg ="Sai mật khẩu hiện tại!";
 			}
 			session.setAttribute("msg", msg);
 			response.sendRedirect(request.getContextPath() + "/user-controller?controllerType=change-password");

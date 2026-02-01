@@ -47,10 +47,10 @@
             if (user == null) {
             %>
             <div class="text-center">
-                <h1 class="display-6 fw-bold text-light">CHANGE PASSWORD</h1>
+                <h1 class="display-6 fw-bold text-light">THAY ĐỔI MẬT KHẨU</h1>
                 <div class="alert alert-warning mt-4 d-inline-block shadow-sm">
                     <i class="bi bi-shield-lock-fill me-2"></i>
-                    You haven't logged in yet! Please <a href="${pageContext.request.contextPath}/user-controller?controllerType=login" class="alert-link">log in</a>.
+                    Bạn chưa đăng nhập! Vui lòng <a href="${pageContext.request.contextPath}/user-controller?controllerType=login" class="alert-link">đăng nhập</a>.
                 </div>
             </div>
             <%
@@ -63,24 +63,24 @@
                 <div class="col-11 col-md-8 col-lg-5">
                     <div class="password-card">
                         <div class="text-center mb-4">
-                            <h1 class="h3 fw-bold text-warning uppercase">UPDATE PASSWORD</h1>
-                            <p class="text-white-50 small">Enter your current and new password below</p>
+                            <h1 class="h3 fw-bold text-warning uppercase">THAY ĐỔI MẬT KHẨU</h1>
+                            <p class="text-white-50 small">Nhập mật khẩu hiện tại và mật khẩu mới</p>
                         </div>
 
                         <form action="${pageContext.request.contextPath}/user-controller?controllerType=change-password" method="post">
                             <div class="mb-3">
-                                <label for="password" class="form-label fw-semibold text-light">Current Password<span class="red">*</span></label>
+                                <label for="password" class="form-label fw-semibold text-light">Mật khẩu hiện tại<span class="red">*</span></label>
                                 <input type="password" class="form-control form-control-lg" id="password" name="password" required>
                             </div>
                             
                             <div class="mb-3">
-                                <label for="newPassword" class="form-label fw-semibold text-light">New Password<span class="red">*</span></label>
-                                <input type="password" class="form-control form-control-lg" id="newPassword" name="newPassword" required minlength="8" placeholder="At least 8 characters">
+                                <label for="newPassword" class="form-label fw-semibold text-light">Mật khẩu mới<span class="red">*</span></label>
+                                <input type="password" class="form-control form-control-lg" id="newPassword" name="newPassword" required minlength="8" placeholder="Ít nhất 8 ký tự">
                             </div>
                             
                             <div class="mb-4">
                                 <label for="passwordReEnter" class="form-label fw-semibold text-light">
-                                    Re-Enter Password<span class="red">*</span>
+                                    Nhập lại mật khẩu mới<span class="red">*</span>
                                     <span id="error-password" class="red small d-block mt-1"></span>
                                 </label>
                                 <input type="password" class="form-control form-control-lg" id="passwordReEnter" name="passwordReEnter" required>
@@ -119,7 +119,7 @@
         if(pwdReEnter) {
             pwdReEnter.addEventListener('blur', function() {
                 if (pwdReEnter.value !== pwd.value && pwdReEnter.value !== "") {
-                    pwd_error.innerText = "Passwords do not match!";
+                    pwd_error.innerText = "Mật khẩu nhập lại không khớp!";
                     pwdReEnter.classList.add('is-invalid');
                 } else {
                     pwd_error.innerText = "";
