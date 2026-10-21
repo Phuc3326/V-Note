@@ -10,3 +10,5 @@ bin/
 # Chặn các file rác phát sinh
 *.log
 .DS_Store
+
+.idea/
