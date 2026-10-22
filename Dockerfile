@@ -27,5 +27,5 @@ COPY --from=build /app/target/*.war webapps/ROOT.war
 # Mở cổng ứng dụng
 EXPOSE 8080
 
-# Chạy server Tomcat
-CMD ["catalina.sh", "run"]
+# Chạy server Tomcat (Tự động thích ứng cả Local 8080 lẫn cổng PORT ngẫu nhiên của Heroku)
+CMD sh -c "sed -i 's/port=\"8080\"/port=\"'\"${PORT:-8080}\"'\"/g' conf/server.xml && catalina.sh run"
