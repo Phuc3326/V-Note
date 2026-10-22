@@ -42,6 +42,7 @@
     String msg = (obj != null) ? obj.toString() : "";
     session.removeAttribute("msg");
     boolean isSuccess = msg.contains("thành công");
+    boolean isResent = msg.contains("đã được gửi");
 
     Long otpTime = (Long) session.getAttribute("otpTime");
     long remainingSeconds = 0;
@@ -78,8 +79,9 @@
                             </div>
 
                             <% if(!msg.isEmpty()) { %>
-                                <div class="text-danger text-center small mb-3">
-                                    <i class="bi bi-exclamation-circle me-1"></i> <%=msg%>
+                                <div class="alert <%= isResent ? "alert-success bg-success bg-opacity-10 border-success text-success" : "alert-danger bg-danger bg-opacity-10 border-danger text-danger" %> py-2 px-3 mb-3 small d-flex align-items-center justify-content-center">
+                                    <i class="bi <%= isResent ? "bi-check-circle-fill" : "bi-exclamation-circle-fill" %> me-2"></i>
+                                    <span><%=msg%></span>
                                 </div>
                             <% } %>
 
@@ -120,12 +122,12 @@
                 timerElement.innerText = timeLeft;
             } else {
                 clearInterval(countdown);
-                timerElement.classList.replace('bg-danger', 'bg-secondary');
+                timerElement.innerText = "0";
             }
         }, 1000);
     }
     </script>
-
+    
     <jsp:include page="/WEB-INF/views/common/footer.jsp"></jsp:include>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
 </body>

@@ -14,7 +14,6 @@
         .password-card {
             padding: 2.5rem 2rem;
             border-radius: 1rem;
-            /* Đổ bóng đậm hơn cho nổi bật trên nền tối */
             box-shadow: 0 10px 30px rgba(0,0,0,0.5);
             background: #212529; 
             border: 1px solid #495057;
@@ -86,9 +85,12 @@
                                 <input type="password" class="form-control form-control-lg" id="passwordReEnter" name="passwordReEnter" required>
                             </div>
 
-                            <% if(!msg.isEmpty()) { %>
-                                <div class="alert alert-danger py-2 px-3 mb-4 small bg-danger bg-opacity-10 border-danger text-danger">
-                                    <i class="bi bi-info-circle me-1"></i> <%=msg%>
+                            <% if(!msg.isEmpty()) { 
+                                boolean isSuccess = msg.toLowerCase().contains("thành công");
+                            %>
+                                <div class="alert <%= isSuccess ? "alert-success bg-success bg-opacity-10 border-success text-success" : "alert-danger bg-danger bg-opacity-10 border-danger text-danger" %> py-2 px-3 mb-4 small d-flex align-items-center">
+                                    <i class="bi <%= isSuccess ? "bi-check-circle-fill" : "bi-exclamation-circle-fill" %> me-2"></i>
+                                    <span><%=msg%></span>
                                 </div>
                             <% } %>
 
@@ -105,8 +107,6 @@
             <% } %>
         </div>
     </main>
-
-    
 
     <jsp:include page="/WEB-INF/views/common/footer.jsp"></jsp:include>
 

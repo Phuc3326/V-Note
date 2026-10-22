@@ -12,22 +12,22 @@
 
 <nav class="navbar navbar-expand-lg navbar-dark bg-dark p-3 border-bottom border-secondary sticky-top">
     <div class="container">
-        <a href="${pageContext.request.contextPath}/" class="navbar-brand fw-bold fs-4">V-Note</a>
+        <a href="${pageContext.request.contextPath}/" class="navbar-brand fw-bold fs-4 text-warning">V-Note</a>
 
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navRes" aria-controls="navRes" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
         </button>
 
         <div class="collapse navbar-collapse" id="navRes">
-            <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+            <ul class="navbar-nav me-auto mb-2 mb-lg-0 gap-2">
                 <li class="nav-item">
                     <a href="${pageContext.request.contextPath}/note-controller?controllerType=index" 
-                       class="nav-link <%= isIndex ? "active text-secondary" : "text-white" %>">Trang chủ</a>
+                       class="nav-link px-2 py-1 <%= isIndex ? "active text-warning fw-semibold" : "text-light fw-semibold opacity-75" %>">Trang chủ</a>
                 </li>
                 <% if (isIndex || isTrash) { %>
                 <li class="nav-item">
                     <a href="${pageContext.request.contextPath}/note-controller?controllerType=trash" 
-                       class="nav-link <%= isTrash ? "active text-secondary" : "text-white" %>">Thùng rác</a>
+                       class="nav-link px-2 py-1 <%= isTrash ? "active text-warning fw-semibold" : "text-light fw-semibold opacity-75" %>">Thùng rác</a>
                 </li>
                 <% } %>
             </ul>
@@ -37,29 +37,29 @@
                 <form action="note-controller" method="GET" class="d-flex align-items-center" role="search">
                     <input type="hidden" name="controllerType" value="search">
                     <input type="search" name="keyword" value="${keyword}"
-                        class="form-control form-control-dark text-bg-dark border-secondary me-2"
-                        placeholder="Tìm kiếm bởi tiêu đề..." aria-label="Search">
-                    <button type="submit" class="btn btn-outline-light text-nowrap">Tìm</button>
+                        class="form-control form-control-dark text-bg-dark border-secondary me-2 fw-semibold"
+                        placeholder="Tìm kiếm bởi tiêu đề..." aria-label="Search" style="font-size: 0.95rem;">
+                    <button type="submit" class="btn btn-outline-warning text-nowrap fw-semibold px-3">Tìm</button>
                 </form>
                 <% } %>
                 
                 <% if (user == null) { %>
                     <% if (!"login".equals(pageName)) { %>
-                    <a href="${pageContext.request.contextPath}/user-controller?controllerType=login" class="btn btn-warning w-100 w-lg-auto">Login</a>
+                    <a href="${pageContext.request.contextPath}/user-controller?controllerType=login" class="btn btn-warning fw-semibold w-100 w-lg-auto px-4">Đăng nhập</a>
                     <% } %>
                 <% } else { %>
                 <div class="dropdown">
-                    <button class="btn btn-outline-light dropdown-toggle w-100" type="button"
+                    <button class="btn btn-outline-light dropdown-toggle w-100 fw-semibold" type="button"
                         id="userMenu" data-bs-toggle="dropdown" aria-expanded="false">
                         <i class="bi bi-person-circle me-1"></i> Tài khoản
                     </button>
                     <ul class="dropdown-menu dropdown-menu-end shadow" aria-labelledby="userMenu">
-                        <li><h6 class="dropdown-header">Hi, <%=user.getFullName()%></h6></li>
+                        <li><h6 class="dropdown-header fw-bold">Xin chào, <%=user.getFullName()%></h6></li>
                         <li><hr class="dropdown-divider"></li>
-                        <li><a class="dropdown-item" href="${pageContext.request.contextPath}/user-controller?controllerType=change-information"><i class="bi bi-person-gear me-2"></i>Thay đổi thông tin người dùng</a></li>
-                        <li><a class="dropdown-item" href="${pageContext.request.contextPath}/user-controller?controllerType=change-password"><i class="bi bi-shield-lock me-2"></i>Thay đổi mật khẩu</a></li>
+                        <li><a class="dropdown-item fw-semibold" href="${pageContext.request.contextPath}/user-controller?controllerType=change-information"><i class="bi bi-person-gear me-2"></i>Thay đổi thông tin người dùng</a></li>
+                        <li><a class="dropdown-item fw-semibold" href="${pageContext.request.contextPath}/user-controller?controllerType=change-password"><i class="bi bi-shield-lock me-2"></i>Thay đổi mật khẩu</a></li>
                         <li><hr class="dropdown-divider"></li>
-                        <li><a class="dropdown-item text-danger" href="${pageContext.request.contextPath}/user-controller?controllerType=logout"><i class="bi bi-box-arrow-right me-2"></i>Đăng xuất</a></li>
+                        <li><a class="dropdown-item fw-semibold text-danger" href="${pageContext.request.contextPath}/user-controller?controllerType=logout"><i class="bi bi-box-arrow-right me-2"></i>Đăng xuất</a></li>
                     </ul>
                 </div>
                 <% } %>

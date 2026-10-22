@@ -9,19 +9,31 @@ public class JDBCUtil {
 		Connection c = null;
 		
 		try {
-			// Dang ky PostgreSQL Driver cho DriverManager quan li
+			// Dang ky PostgreSQL Driver cho DriverManager quan ly
 			DriverManager.registerDriver(new org.postgresql.Driver());
 			
-			// Thuoc tinh de tao Connection
-			String url = "jdbc:postgresql://aws-1-ap-northeast-2.pooler.supabase.com:5432/postgres?sslmode=require";
-			String userName = System.getenv("DB_USER");
-	        String password = System.getenv("DB_PASS");
+			// Doc cac thong tin ket noi tu bien moi truong
+			// Neu khong truyen DB_URL, mac dinh tro ve service database 'vnote-db' cua Docker
+			String url = System.getenv("DB_URL");
+			if (url == null || url.trim().isEmpty()) {
+				url = "jdbc:postgresql://vnote-db:5432/vnote_db";
+			}
 			
-			// Tao Connection toi database V-Note su dung PostgreSQL Driver
+			String userName = System.getenv("DB_USER");
+			if (userName == null || userName.trim().isEmpty()) {
+				userName = "vnote_user";
+			}
+			
+			String password = System.getenv("DB_PASS");
+			if (password == null || password.trim().isEmpty()) {
+				password = "vnote_secret_pass";
+			}
+			
+			// Tao Connection toi PostgreSQL
 			c = DriverManager.getConnection(url, userName, password);
 			
 		} catch (SQLException e) {
-			// TODO Auto-generated catch block
+			System.err.println("Database Connection Failed: " + e.getMessage());
 			e.printStackTrace();
 		}
 		
@@ -33,7 +45,6 @@ public class JDBCUtil {
 			try {
 				c.close();
 			} catch (SQLException e) {
-				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
 		}

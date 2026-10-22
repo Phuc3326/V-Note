@@ -56,8 +56,13 @@
             </div>
             <%
             } else {
-                Object obj = request.getAttribute("message");
-                String msg = (obj != null) ? obj.toString() : "";
+                Object reqMsg = request.getAttribute("message");
+                Object sesMsg = session.getAttribute("msg");
+                if (sesMsg != null) {
+                    session.removeAttribute("msg");
+                }
+                String msg = (reqMsg != null) ? reqMsg.toString() : ((sesMsg != null) ? sesMsg.toString() : "");
+                boolean isSuccess = msg.toLowerCase().contains("thành công");
                 String userName = request.getParameter("userName");
                 userName = (userName != null) ? userName : "";
             %>
@@ -83,8 +88,9 @@
                             </div>
 
                             <% if(!msg.isEmpty()) { %>
-                                <div class="text-danger small mb-3">
-                                    <i class="bi bi-exclamation-circle me-1"></i> <%=msg%>
+                                <div class="alert <%= isSuccess ? "alert-success bg-success bg-opacity-10 border-success text-success" : "alert-danger bg-danger bg-opacity-10 border-danger text-danger" %> py-2 px-3 mb-3 small d-flex align-items-center">
+                                    <i class="bi <%= isSuccess ? "bi-check-circle-fill" : "bi-exclamation-circle-fill" %> me-2"></i>
+                                    <span><%=msg%></span>
                                 </div>
                             <% } %>
 
@@ -107,10 +113,7 @@
         </div>
     </main>
 
-    
-
     <jsp:include page="/WEB-INF/views/common/footer.jsp"></jsp:include>
-    
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 </html>

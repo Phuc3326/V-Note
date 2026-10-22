@@ -99,9 +99,12 @@
                                 </div>
                             </div>
 
-                            <% if(!msg.isEmpty()) { %>
-                                <div class="alert alert-danger py-2 px-3 mb-3 small bg-danger bg-opacity-10 border-danger text-danger">
-                                    <i class="bi bi-info-circle me-1"></i> <%=msg%>
+                            <% if(!msg.isEmpty()) { 
+                                boolean isSuccess = msg.toLowerCase().contains("thành công");
+                            %>
+                                <div class="alert <%= isSuccess ? "alert-success bg-success bg-opacity-10 border-success text-success" : "alert-danger bg-danger bg-opacity-10 border-danger text-danger" %> py-2 px-3 mb-3 small d-flex align-items-center">
+                                    <i class="bi <%= isSuccess ? "bi-check-circle-fill" : "bi-exclamation-circle-fill" %> me-2"></i>
+                                    <span><%=msg%></span>
                                 </div>
                             <% } %>
 
@@ -118,8 +121,6 @@
             <% } %>
         </div>
     </main>
-
-    
 
     <jsp:include page="/WEB-INF/views/common/footer.jsp"></jsp:include>
 

@@ -1,15 +1,31 @@
-# Sử dụng image Tomcat 9 chính thức với JDK 11
+# ==========================================
+# STAGE 1: Build mã nguồn bằng Maven & OpenJDK 11
+# ==========================================
+FROM maven:3.8.6-openjdk-11 AS build
+WORKDIR /app
+
+# Copy pom.xml và tải thư viện trước để tối ưu cache của Docker
+COPY pom.xml .
+RUN mvn dependency:go-offline -B || true
+
+# Copy toàn bộ mã nguồn và biên dịch thành file .war
+COPY src ./src
+RUN mvn clean package -DskipTests
+
+# ==========================================
+# STAGE 2: Khởi chạy ứng dụng bằng Tomcat 9
+# ==========================================
 FROM tomcat:9.0-jdk11-corretto
+WORKDIR /usr/local/tomcat
 
-# Xóa các ứng dụng mặc định của Tomcat để tránh xung đột
-RUN rm -rf /usr/local/tomcat/webapps/*
+# Dọn dẹp các ứng dụng mẫu mặc định của Tomcat
+RUN rm -rf webapps/*
 
-# Copy file .war từ thư mục target vào thư mục webapps của Tomcat
-# Đổi tên thành ROOT.war để ứng dụng chạy ngay tại trang chủ (/)
-COPY target/*.war /usr/local/tomcat/webapps/ROOT.war
+# Copy file .war vừa build ở Stage 1 vào webapps và đổi tên thành ROOT.war để chạy tại trang chủ (/)
+COPY --from=build /app/target/*.war webapps/ROOT.war
 
-# Mở cổng 8080
+# Mở cổng ứng dụng
 EXPOSE 8080
 
-# Chạy Tomcat
+# Chạy server Tomcat
 CMD ["catalina.sh", "run"]

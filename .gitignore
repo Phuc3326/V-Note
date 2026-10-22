@@ -1,14 +1,39 @@
-# Chặn các file cấu hình của riêng Eclipse trong dự án
+# ==========================================
+# 1. Maven Build Artifacts (RẤT QUAN TRỌNG)
+# ==========================================
+target/
+*.war
+*.jar
+*.class
+
+# ==========================================
+# 2. IDE & Editor Files
+# ==========================================
+# Eclipse
 .project
 .classpath
 .settings/
-
-# Chặn folder chứa file đã biên dịch (không cần thiết trên Git)
 build/
 bin/
 
-# Chặn các file rác phát sinh
+# IntelliJ IDEA
+.idea/
+*.iml
+out/
+
+# VS Code
+.vscode/
+
+# ==========================================
+# 3. Environment Variables & Secrets
+# ==========================================
+.env
+.env.*
+!.env.example
+
+# ==========================================
+# 4. OS & Log Files
+# ==========================================
 *.log
 .DS_Store
-
-.idea/
+Thumbs.db

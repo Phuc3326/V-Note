@@ -1,30 +1,30 @@
 @charset "UTF-8";
 
-/* 1. Nền xám đậm dịu mắt, không dùng đen tuyền */
+/* 1. Thiết lập Font chữ đồng bộ 100% toàn bộ hệ thống (giống Title và Form Label) */
+*, *::before, *::after, html, body, input, button, select, textarea, .btn, .nav-link, .navbar-brand, .form-control, .form-label, h1, h2, h3, h4, h5, h6 {
+    font-family: 'Segoe UI', system-ui, -apple-system, BlinkMacSystemFont, 'Roboto', 'Helvetica Neue', Arial, sans-serif !important;
+}
+
+/* Nền xám đậm dịu mắt, không dùng đen tuyền */
 body {
     background-color: #1e1e1e !important; 
     color: #e0e0e0 !important; /* Chữ trắng mờ (off-white) để không bị chói */
-    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
 }
 
-/* 2. Tiêu đề trang - Giảm độ chói bằng màu xám nhạt */
+/* 2. Tiêu đề trang */
 h1 {
-    text-align: center;
-    margin-top: 20px;
-    margin-bottom: 30px;
-    font-weight: 600;
-    color: #cfcfcf; 
+    font-weight: 700;
 }
 
 /* 3. Chỉnh lại ô nhập liệu (Input) cho đồng bộ nền tối */
 .form-control {
-    background-color: #2d2d2d !important; /* Nền ô nhập màu xám nhẹ */
-    border: 1px solid #444 !important;    /* Viền mờ */
+    background-color: #2b3035 !important; /* Nền ô nhập màu xám nhẹ */
+    border: 1px solid #495057 !important;    /* Viền mờ */
     color: #ffffff !important;           /* Chữ gõ vào màu trắng */
 }
 
 .form-control:focus {
-    background-color: #333 !important;
+    background-color: #32383e !important;
     border-color: #ffc107 !important;    /* Viền vàng khi nhấn vào cho nổi bật */
     box-shadow: 0 0 0 0.25rem rgba(255, 193, 7, 0.25) !important;
     color: #fff !important;
@@ -33,22 +33,55 @@ h1 {
 /* 4. Định dạng liên kết và Header/Footer */
 a {
     text-decoration: none !important;
-    color: #aaa; /* Link mặc định màu xám mờ */
-    transition: 0.3s;
+    color: #aaa;
+    transition: 0.2s ease-in-out;
 }
 
 a:hover {
-    color: #ffc107 !important; /* Hover lên mới hiện màu vàng sáng */
+    color: #ffc107 !important; /* Hover lên hiện màu vàng sáng */
 }
 
-/* 5. Các nút bấm */
+/* Thanh Navigation Header */
+.navbar-brand {
+    letter-spacing: 0.5px;
+}
+
+.navbar .nav-link {
+    font-size: 0.95rem;
+    font-weight: 600 !important;
+    color: rgba(255, 255, 255, 0.8) !important;
+    transition: all 0.2s ease-in-out;
+}
+
+.navbar .nav-link:hover {
+    color: #ffc107 !important;
+}
+
+.navbar .nav-link.active {
+    color: #ffc107 !important;
+}
+
+/* Nút Submit tông Vàng chuyên nghiệp */
 .btn-primary {
-    background-color: #0d6efd;
-    border: none;
+    background-color: #ffc107 !important;
+    border: none !important;
+    color: #121212 !important;
+    font-weight: 600 !important;
+    transition: all 0.2s ease;
+}
+
+.btn-primary:hover {
+    background-color: #e0a800 !important;
+    box-shadow: 0 0 10px rgba(255, 193, 7, 0.4);
+    transform: translateY(-1px);
+}
+
+.btn-primary:active {
+    transform: translateY(0);
 }
 
 .red {
-    color: #ff6b6b; /* Màu đỏ dịu hơn */
+    color: #ff6b6b;
 }
 
 /* Tùy chỉnh thanh cuộn cho đồng bộ */
@@ -64,27 +97,6 @@ a:hover {
 }
 
 .form-control::placeholder {
-    color: #aaa !important;
+    color: #8c959f !important;
     opacity: 1;
-}
-
-/* 1. Tùy chỉnh nút Submit sang tông Vàng chuyên nghiệp */
-.btn-primary {
-    background-color: #ffc107 !important; /* Màu vàng Gold */
-    border: none !important;
-    color: #121212 !important;           /* Chữ đen đậm để nổi bật trên nền vàng */
-    font-weight: 600 !important;
-    transition: all 0.3s ease;
-}
-
-/* Hiệu ứng khi di chuột vào nút */
-.btn-primary:hover {
-    background-color: #e0a800 !important; /* Vàng đậm hơn một chút */
-    box-shadow: 0 0 10px rgba(255, 193, 7, 0.4);
-    transform: translateY(-1px);          /* Nhấc nút lên nhẹ một chút */
-}
-
-/* Hiệu ứng khi click */
-.btn-primary:active {
-    transform: translateY(0);
 }
